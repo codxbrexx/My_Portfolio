@@ -13,8 +13,8 @@ const Layout = ({ theme, toggleTheme }) => {
     return (
         <div className={`relative w-full h-screen overflow-hidden ${theme === 'light' ? 'bg-white' : 'bg-black'}`}>
             <CustomCursor />
-            {/* Persistent 3D Background - Only on Home */}
-            {location.pathname === '/' && (
+            {/* Persistent 3D Background*/}
+            {location.pathname === '/' && theme === 'dark' && (
                 <div className="fixed inset-0 z-0 pointer-events-none">
                     <Canvas camera={{ position: [0, 0, 5], fov: 75 }}>
                         <color attach="background" args={[theme === 'light' ? '#ffffff' : '#000000']} />

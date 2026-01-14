@@ -21,7 +21,7 @@ const FloatingShape = ({ theme }) => {
         <mesh ref={meshRef} position={[0, 0, 0]}>
             <icosahedronGeometry args={[1.5, 2]} />
             <MeshDistortMaterial
-                color={theme === "light" ? "#000000ff" : "#bdc9c1ff"}
+                color={theme === "light" ? "#000000ff" : "#000000ff"}
                 attach="material"
                 distort={0.5}
                 speed={2}
