@@ -253,7 +253,7 @@ export const PROJECTS = [
     description: "An educational tool leveraging AI to simplify complex texts. Users upload documents or paste text to receive concise summaries and explanations.",
     skills: ["React", "Python", "Flask", "OpenAI API"],
     githubUrl: "https://github.com/codxbrexx/AITextExplainer",
-    liveUrl: "Extentation not Deployed",
+    liveUrl: "Extension not Deployed",
   },
 ];
 

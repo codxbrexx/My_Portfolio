@@ -62,7 +62,7 @@ const Hero = ({ theme }) => {
         >
             {/* Logo / Avatar */}
             <div ref={logoRef} className="mb-8 relative group">
-                <div className="absolute -inset-1 bg-gradient-to-r from-white to-white rounded-full blur opacity-75 group-hover:opacity-100 transition duration-1000 group-hover:duration-200"></div>
+                <div className="absolute -inset-1 bg-gradient-to-r from-indigo-500 to-white rounded-full blur opacity-75 group-hover:opacity-100 transition duration-1000 group-hover:duration-200"></div>
                 <img
                     src={HeroImage}
                     alt="Logo"
@@ -73,7 +73,7 @@ const Hero = ({ theme }) => {
             {/* Name */}
             <h1
                 ref={nameRef}
-                className={`text-6xl md:text-8xl font-black tracking-tighter mb-4 ${theme === 'light' ? 'text-gray-700 drop-shadow-2xl' : 'text-white shadow-white/10'
+                className={`text-6xl md:text-8xl font-black tracking-tighter mb-4 ${theme === 'light' ? 'text-gray-950 drop-shadow-2xl' : 'text-white shadow-white/10'
                     }`}
             >
                 {PROFILE_DATA.name}
@@ -82,8 +82,8 @@ const Hero = ({ theme }) => {
             {/* Title */}
             <div ref={titleRef} className="text-2xl md:text-4xl font-light mb-8 opacity-0">
                 <span className={`font-bold text-transparent bg-clip-text ${theme === 'light'
-                    ? 'bg-gradient-to-r from-violet-500 to-indigo-500 drop-shadow-sm'
-                    : 'bg-gradient-to-b from-indigo-500 to-indigo-500'
+                    ? 'bg-gradient-to-r from-purple-600 to-indigo-600 drop-shadow-sm'
+                    : 'bg-gradient-to-r from-indigo-400 via-purple-400 to-indigo-400 animate-gradient'
                     }`}>
                     Full Stack Developer | Algorithmic Thinker
                 </span>
@@ -92,7 +92,7 @@ const Hero = ({ theme }) => {
             {/* Bio */}
             <p
                 ref={bioRef}
-                className={`text-lg md:text-xl leading-relaxed max-w-2xl mx-auto mb-12 opacity-0 ${theme === 'light' ? 'text-gray-600' : 'text-slate-300'}`}
+                className={`text-lg md:text-xl leading-relaxed max-w-2xl mx-auto mb-12 opacity-0 ${theme === 'light' ? 'text-gray-900' : 'text-slate-300'}`}
             >
                 {HERO_CONTENT.introduction}
             </p>
