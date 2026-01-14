@@ -6,18 +6,18 @@ import {
   IoLogoCss3,
 } from "react-icons/io5";
 import { RiTailwindCssFill } from "react-icons/ri";
-import { 
-  SiMongodb, 
-  SiCplusplus, 
-  SiTypescript, 
-  SiExpress, 
-  SiJsonwebtokens, 
-  SiRedis, 
-  SiGooglecloud, 
-  SiGit, 
-  SiGithub, 
-  SiPostman, 
-  SiLinux, 
+import {
+  SiMongodb,
+  SiCplusplus,
+  SiTypescript,
+  SiExpress,
+  SiJsonwebtokens,
+  SiRedis,
+  SiGooglecloud,
+  SiGit,
+  SiGithub,
+  SiPostman,
+  SiLinux,
   SiApachekafka,
   SiMysql,
   SiMongoose
@@ -25,9 +25,10 @@ import {
 import { TbApi, TbBrandOauth } from "react-icons/tb";
 import { VscVscode } from "react-icons/vsc";
 import { FaCode, FaGlobe, FaDatabase, FaTools, FaUser } from "react-icons/fa";
+import HeroImage from "../assets/hero-gen.png";
 
 export const PROFILE_DATA = {
-  profilePicture: "../public/Hero6.png",
+  profilePicture: HeroImage,
   name: "Mozammil Ali",
   tagline: "Passionate Full Stack Developer with 6 months of experience in building responsive web applications using modern technologies. Proficient in both front-end and back-end development, with a strong focus on creating clean, efficient, and scalable code. Skilled in collaborating with cross-functional teams to deliver high-quality software solutions.",
   jobTitle: "Full Stack Developer",
@@ -46,8 +47,8 @@ export const PROFILE_DATA = {
     "Git",
     "Redux",
   ],
-  email: "mozammilali@example.com",
-  phone: "+91 1234567890",
+  email: "mozammilali2018@gmail.com",
+  phone: "+91 7033763035",
   website: "https://mozammilali.netlify.app/",
 };
 
@@ -152,38 +153,45 @@ export const WORK_EXPERIENCE = [
 ];
 
 export const PERSONAL_BRAND_DATA = {
-    philosophy: [
-        "Code with purpose, design with empathy",
-        "Every line matters, every user counts",
-        "Innovation through iteration, excellence through persistence",
-        "Building tomorrow's solutions with today's best practices"
-    ],
-    journey: {
-        title: "My Journey",
-        description: "From a curious student to a Full Stack Developer, my path has been defined by continuous learning and hands-on building. Started with C++, mastered the MERN stack, and now architecting scalable solutions."
-    },
-    values: [
-        { title: "Clean Code", description: "Writing maintainable, efficient, and readable software." },
-        { title: "User-Centric", description: "Prioritizing user experience in every design decision." },
-        { title: "Continuous Learning", description: "Staying updated with evolving tech landscapes." },
-        { title: "Collaboration", description: "Believing in the power of teamwork and open source." }
-    ],
-    goals: {
-        title: "Career Goals",
-        description: "To become a Lead Engineer contributing to high-impact projects, mentoring junior developers, and driving technical innovation in the open-source community."
-    },
-    codeSnippet: `const developer = {
+  philosophy: [
+    "Code with purpose, design with empathy",
+    "Every line matters, every user counts",
+    "Innovation through iteration, excellence through persistence",
+    "Building tomorrow's solutions with today's best practices"
+  ],
+  journey: {
+    title: "My Journey",
+    description: "From a curious student to a Full Stack Developer, my path has been defined by continuous learning and hands-on building. Started with C++, mastered the MERN stack, and now architecting scalable solutions."
+  },
+  values: [
+    { title: "Clean Code", description: "Writing maintainable, efficient, and readable software." },
+    { title: "User-Centric", description: "Prioritizing user experience in every design decision." },
+    { title: "Continuous Learning", description: "Staying updated with evolving tech landscapes." },
+    { title: "Collaboration", description: "Believing in the power of teamwork and open source." }
+  ],
+  goals: {
+    title: "Career Goals",
+    description: "To become a Lead Engineer contributing to high-impact projects, mentoring junior developers, and driving technical innovation in the open-source community."
+  },
+  codeSnippet: `const developer = {
   name: "Mozammil Ali",
   role: "Full Stack Developer",
   passion: "Building amazing things",
   superpower: "Turning coffee into code ☕"
 };`,
-    stats: [
-        { label: "Performance Leader", value: "100%", subtext: "Lighthouse 100/89 scores consistently" },
-        { label: "AI Innovation", value: "1+", subtext: "LangChain & RAG implementations" },
-        { label: "Full Stack", value: "4+", subtext: "End-to-end project delivery" },
-        { label: "Open Source", value: "Active", subtext: "Community contributions" }
-    ]
+  stats: [
+    { label: "Performance Leader", value: "100%", subtext: "Lighthouse 100/89 scores consistently" },
+    { label: "AI Innovation", value: "1+", subtext: "LangChain & RAG implementations" },
+    { label: "Full Stack", value: "4+", subtext: "End-to-end project delivery" },
+    { label: "Open Source", value: "Active", subtext: "Community contributions" }
+  ],
+  achievements: [
+    "🟣 Codeforces Specialist | Max Rating: 1262",
+    "🟤 CodeChef 3★ | Max Rating: 1626",
+    "🟡 3.8k /26.7K — CF Round 1063 (Div. 3)",
+    "🔥 Solved 500+ algorithmic problems",
+    "🔧 5+ PRs & Open-source contributions (Hacktoberfest'25, Apache Wagtail)"
+  ]
 };
 
 export const PROJECTS = [
@@ -191,61 +199,61 @@ export const PROJECTS = [
     id: "01",
     title: "FocusMaster",
     category: "Productivity",
-    image: "/project1.jpg", 
+    image: "/project1.png",
     description: "A comprehensive productivity tool designed to enhance focus and task management. Features include Pomodoro timers, distraction blocking, and detailed productivity analytics.",
     skills: ["React", "Electron", "Redux", "Firebase"],
     githubUrl: "https://github.com/codxbrexx/FocusMaster",
-    liveUrl: null,
+    liveUrl: "https://focuswithme.vercel.app/",
   },
   {
     id: "02",
     title: "College Alumni",
     category: "Social Network",
-    image: "/project2.jpg",
+    image: "/project2.png",
     description: "A digital platform connecting college alumni, fostering networking, mentorship, and event organization. Includes job boards and success story showcases.",
     skills: ["MERN Stack", "Socket.io", "Cloudinary"],
     githubUrl: "https://github.com/codxbrexx/college-alumni",
-    liveUrl: null,
+    liveUrl: "https://college-info-project.vercel.app/",
   },
   {
     id: "03",
     title: "Food-Express",
     category: "E-Commerce",
-    image: "/project3.jpg",
+    image: "/project3.png",
     description: "Fast and reliable food delivery application with real-time tracking, secure payment gateways, and an intuitive restaurant discovery interface.",
     skills: ["React Native", "Node.js", "MongoDB", "Google Maps API"],
     githubUrl: "https://github.com/codxbrexx/Food-Express",
-    liveUrl: null,
+    liveUrl: "https://food-express-lake.vercel.app/",
   },
   {
     id: "04",
     title: "GetPrompt",
     category: "AI Tools",
-    image: "/project1.jpg",
+    image: "/project4.png",
     description: "A marketplace and sharing platform for AI prompts. Users can discover, test, and share high-quality prompts for various LLMs to boost their workflow.",
     skills: ["Next.js", "Recoil", "Tailwind CSS", "PostgreSQL"],
     githubUrl: "https://github.com/codxbrexx/GetPrompt",
-    liveUrl: null,
+    liveUrl: "https://get-prompt-jet.vercel.app/",
   },
   {
     id: "05",
     title: "AnnDaan",
     category: "Social Impact",
-    image: "/project2.jpg",
+    image: "/project5.png",
     description: "A charitable platform dedicated to reducing food waste by connecting donors with NGOs and shelters to distribute surplus food to those in need.",
     skills: ["React", "Express", "MongoDB", "Geolocation API"],
     githubUrl: "https://github.com/codxbrexx/AnnDaan",
-    liveUrl: null,
+    liveUrl: "https://college-alumni-iota.vercel.app/",
   },
   {
     id: "06",
     title: "AITextExplainer",
     category: "Education",
-    image: "/project3.jpg",
+    image: "/project6.png",
     description: "An educational tool leveraging AI to simplify complex texts. Users upload documents or paste text to receive concise summaries and explanations.",
     skills: ["React", "Python", "Flask", "OpenAI API"],
     githubUrl: "https://github.com/codxbrexx/AITextExplainer",
-    liveUrl: null,
+    liveUrl: "Extentation not Deployed",
   },
 ];
 

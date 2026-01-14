@@ -1,16 +1,15 @@
 import { useEffect, useState } from "react";
-import { motion } from "framer-motion";
+import { motion, useMotionValue } from "framer-motion";
 
 const CustomCursor = () => {
-    const [mousePosition, setMousePosition] = useState({ x: 0, y: 0 });
+    const cursorX = useMotionValue(-100);
+    const cursorY = useMotionValue(-100);
     const [isHovering, setIsHovering] = useState(false);
 
     useEffect(() => {
         const mouseMove = (e) => {
-            setMousePosition({
-                x: e.clientX,
-                y: e.clientY
-            })
+            cursorX.set(e.clientX - 16);
+            cursorY.set(e.clientY - 16);
         }
 
         window.addEventListener("mousemove", mouseMove);
@@ -34,21 +33,22 @@ const CustomCursor = () => {
             document.removeEventListener("mouseover", handleMouseOver);
             document.removeEventListener("mouseout", handleMouseOut);
         }
-    }, []);
+    }, [cursorX, cursorY]);
 
     return (
         <motion.div
             className="fixed top-0 left-0 w-8 h-8 border border-cyan-400 rounded-full pointer-events-none z-50 flex items-center justify-center mix-blend-difference"
+            style={{
+                x: cursorX,
+                y: cursorY,
+            }}
             animate={{
-                x: mousePosition.x - 16,
-                y: mousePosition.y - 16,
                 scale: isHovering ? 1.5 : 1,
                 backgroundColor: isHovering ? "rgba(34, 211, 238, 0.2)" : "transparent",
             }}
             transition={{
-                type: "spring",
-                stiffness: 500,
-                damping: 28
+                duration: 0.1, // Very fast hover transition
+                ease: "easeOut"
             }}
         >
             <div className="w-1 h-1 bg-cyan-400 rounded-full" />

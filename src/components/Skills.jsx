@@ -3,7 +3,7 @@ import { motion, AnimatePresence } from "framer-motion";
 import { SKILLS } from "../utils/data";
 import { IoIosArrowDown } from "react-icons/io";
 
-const SkillBar = ({ skill, index, isVisible }) => {
+const SkillBar = ({ skill, index, isVisible, theme }) => {
   const [animatedLevel, setAnimatedLevel] = useState(0);
 
   useEffect(() => {
@@ -36,7 +36,7 @@ const SkillBar = ({ skill, index, isVisible }) => {
       <div className="flex justify-between items-center mb-1">
         <div className="flex items-center gap-2">
           {skill.icon && <skill.icon className="text-[#0f9df8]" />}
-          <span className="font-medium text-blue-100/90 text-sm">
+          <span className={`font-medium text-sm ${theme === 'light' ? 'text-gray-700' : 'text-blue-100/90'}`}>
             {skill.name}
           </span>
           <span className={`text-[10px] px-2 py-0.5 rounded-full ${skillLevel.color} bg-white/5 border border-white/5`}>
@@ -66,21 +66,18 @@ const SkillBar = ({ skill, index, isVisible }) => {
   );
 };
 
-const Skills = () => {
+const Skills = ({ theme }) => {
   const [activeCategory, setActiveCategory] = useState(0);
 
   return (
-    <section className="max-w-6xl mx-auto px-6 py-20">
+    <section className="max-w-6xl mx-auto px-0 py-0 md:py-8">
       <motion.div
-        className="text-center mb-16"
+        className="text-center mb-12"
         initial={{ opacity: 0, y: 30 }}
         whileInView={{ opacity: 1, y: 0 }}
         viewport={{ once: true }}
       >
-        <h2 className="text-3xl md:text-5xl font-bold text-white mb-6">
-          Skills & Expertise
-        </h2>
-        <p className="text-blue-200/60 max-w-2xl mx-auto text-lg">
+        <p className={`max-w-2xl mx-auto text-lg ${theme === 'light' ? 'text-gray-600' : 'text-blue-200/60'}`}>
           Interactive visualization of my technical skills and proficiency levels.
           Click on categories to explore.
         </p>
@@ -99,41 +96,44 @@ const Skills = () => {
               transition={{ delay: index * 0.1 }}
               onClick={() => setActiveCategory(isActive ? null : index)}
               className={`
-                relative bg-[#0a0a0a]/40 backdrop-blur-md rounded-2xl border 
-                ${isActive ? 'border-[#0f9df8]/50' : 'border-white/10 hover:border-white/20'}
+                relative backdrop-blur-md rounded-2xl border 
+                ${isActive
+                  ? (theme === 'light' ? 'border-indigo-500/50 bg-white/60 shadow-lg' : 'border-[#0f9df8]/50 bg-[#0a0a0a]/40')
+                  : (theme === 'light' ? 'border-gray-200 bg-white/40 hover:border-indigo-300' : 'border-white/10 bg-[#0a0a0a]/40 hover:border-white/20')
+                }
                 p-6 cursor-pointer transition-all duration-300 overflow-hidden
               `}
             >
               <div
                 className={`absolute inset-0 opacity-0 transition-opacity duration-500 pointer-events-none -z-10
                     bg-gradient-to-br ${category.color} blur-3xl`}
-                style={{ opacity: isActive ? 0.05 : 0 }}
+                style={{ opacity: isActive ? (theme === 'light' ? 0.15 : 0.05) : 0 }}
               />
 
               <div className="flex items-center justify-between mb-2">
                 <div className="flex items-center gap-4">
                   <div className={`p-3 rounded-lg bg-gradient-to-br ${category.color} bg-opacity-10`}>
-                    <category.icon className="text-white text-xl" />
+                    <category.icon className={`${theme === 'light' ? 'text-white' : 'text-white'} text-xl`} />
                   </div>
-                  <h3 className="text-xl font-bold text-white">{category.title}</h3>
+                  <h3 className={`text-xl font-bold ${theme === 'light' ? 'text-gray-900' : 'text-white'}`}>{category.title}</h3>
                 </div>
                 <motion.div
                   animate={{ rotate: isActive ? 180 : 0 }}
                   transition={{ duration: 0.3 }}
                 >
-                  <IoIosArrowDown className="text-gray-400" />
+                  <IoIosArrowDown className={theme === 'light' ? 'text-gray-500' : 'text-gray-400'} />
                 </motion.div>
               </div>
 
               {!isActive && (
                 <div className="flex flex-wrap gap-2 mt-4 ml-14">
                   {category.skills.slice(0, 3).map((skill, i) => (
-                    <span key={i} className="text-xs bg-white/5 text-gray-400 px-2 py-1 rounded-md">
+                    <span key={i} className={`text-xs px-2 py-1 rounded-md ${theme === 'light' ? 'bg-gray-100 text-gray-600' : 'bg-white/5 text-gray-400'}`}>
                       {skill.name}
                     </span>
                   ))}
                   {category.skills.length > 3 && (
-                    <span className="text-xs bg-white/5 text-gray-500 px-2 py-1 rounded-md">
+                    <span className={`text-xs px-2 py-1 rounded-md ${theme === 'light' ? 'bg-gray-100 text-gray-500' : 'bg-white/5 text-gray-500'}`}>
                       +{category.skills.length - 3} more
                     </span>
                   )}
@@ -149,7 +149,7 @@ const Skills = () => {
                     transition={{ duration: 0.3 }}
                     className="mt-6 pl-2 pr-2"
                   >
-                    <div className="h-px w-full bg-white/10 mb-6" />
+                    <div className={`h-px w-full mb-6 ${theme === 'light' ? 'bg-gray-200' : 'bg-white/10'}`} />
                     <div className="space-y-5">
                       {category.skills.map((skill, i) => (
                         <SkillBar
@@ -157,6 +157,7 @@ const Skills = () => {
                           skill={skill}
                           index={i}
                           isVisible={isActive}
+                          theme={theme}
                         />
                       ))}
                     </div>

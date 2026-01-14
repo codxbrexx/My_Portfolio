@@ -4,16 +4,16 @@ import { GITHUB_USERNAME } from '../utils/data';
 import { FaGithub, FaCodeBranch, FaStar, FaRegDotCircle } from "react-icons/fa";
 import { BiGitRepoForked, BiGitPullRequest, BiGitCommit } from "react-icons/bi";
 
-const ActivityCard = ({ activity, index }) => {
+const ActivityCard = ({ activity, index, theme }) => {
   const getIcon = (type) => {
     switch (type) {
-      case 'PushEvent': return <BiGitCommit className="text-green-400" />;
-      case 'PullRequestEvent': return <BiGitPullRequest className="text-purple-400" />;
-      case 'WatchEvent': return <FaStar className="text-yellow-400" />;
-      case 'ForkEvent': return <BiGitRepoForked className="text-blue-400" />;
-      case 'CreateEvent': return <FaCodeBranch className="text-cyan-400" />;
-      case 'IssuesEvent': return <FaRegDotCircle className="text-red-400" />;
-      default: return <FaGithub className="text-gray-400" />;
+      case 'PushEvent': return <BiGitCommit className={theme === 'light' ? 'text-green-600' : 'text-green-400'} />;
+      case 'PullRequestEvent': return <BiGitPullRequest className={theme === 'light' ? 'text-purple-600' : 'text-purple-400'} />;
+      case 'WatchEvent': return <FaStar className={theme === 'light' ? 'text-yellow-600' : 'text-yellow-400'} />;
+      case 'ForkEvent': return <BiGitRepoForked className={theme === 'light' ? 'text-blue-600' : 'text-blue-400'} />;
+      case 'CreateEvent': return <FaCodeBranch className={theme === 'light' ? 'text-cyan-600' : 'text-cyan-400'} />;
+      case 'IssuesEvent': return <FaRegDotCircle className={theme === 'light' ? 'text-red-600' : 'text-red-400'} />;
+      default: return <FaGithub className={theme === 'light' ? 'text-gray-600' : 'text-gray-400'} />;
     }
   };
 
@@ -35,17 +35,23 @@ const ActivityCard = ({ activity, index }) => {
       initial={{ opacity: 0, x: -20 }}
       animate={{ opacity: 1, x: 0 }}
       transition={{ delay: index * 0.1 }}
-      className="flex items-center gap-4 p-4 rounded-xl bg-white/5 border border-white/5 hover:bg-white/10 hover:border-white/10 transition-colors cursor-pointer group"
+      className={`flex items-center gap-4 p-4 rounded-xl border transition-colors cursor-pointer group ${theme === 'light'
+        ? 'bg-white border-gray-200 hover:border-blue-400 hover:shadow-md'
+        : 'bg-white/5 border-white/5 hover:bg-white/10 hover:border-white/10'
+        }`}
       onClick={() => window.open(`https://github.com/${activity.repo.name}`, '_blank')}
     >
-      <div className="text-xl p-2 bg-white/5 rounded-full ring-1 ring-white/10 group-hover:scale-110 transition-transform">
+      <div className={`text-xl p-2 rounded-full ring-1 group-hover:scale-110 transition-transform ${theme === 'light'
+        ? 'bg-gray-50 ring-gray-200'
+        : 'bg-white/5 ring-white/10'
+        }`}>
         {getIcon(activity.type)}
       </div>
       <div className="flex-1 min-w-0">
-        <p className="text-sm font-medium text-white truncate group-hover:text-blue-300 transition-colors">
+        <p className={`text-sm font-medium truncate group-hover:text-blue-400 transition-colors ${theme === 'light' ? 'text-gray-900' : 'text-white'}`}>
           {getDescription(activity)}
         </p>
-        <p className="text-xs text-gray-500 mt-1">
+        <p className={`text-xs mt-1 ${theme === 'light' ? 'text-gray-500' : 'text-gray-500'}`}>
           {new Date(activity.created_at).toLocaleDateString()} • {new Date(activity.created_at).toLocaleTimeString()}
         </p>
       </div>
@@ -53,7 +59,7 @@ const ActivityCard = ({ activity, index }) => {
   );
 };
 
-const GitHubActivity = () => {
+const GitHubActivity = ({ theme }) => {
   const [activities, setActivities] = useState([]);
   const [loading, setLoading] = useState(true);
 
@@ -76,13 +82,16 @@ const GitHubActivity = () => {
         <motion.div
           initial={{ opacity: 0, scale: 0.9 }}
           whileInView={{ opacity: 1, scale: 1 }}
-          className="inline-flex items-center gap-2 px-4 py-1 rounded-full bg-slate-800/50 border border-slate-700/50 text-slate-300 text-sm mb-4"
+          className={`inline-flex items-center gap-2 px-4 py-1 rounded-full text-sm mb-4 border ${theme === 'light'
+            ? 'bg-blue-50 border-blue-200 text-blue-700'
+            : 'bg-slate-800/50 border-slate-700/50 text-slate-300'
+            }`}
         >
           <span className="w-2 h-2 rounded-full bg-green-500 animate-pulse" />
           Live Activity
         </motion.div>
-        <h2 className="text-3xl font-bold text-white mb-4">Latest from GitHub</h2>
-        <p className="text-blue-200/60">
+        <h2 className={`text-3xl font-bold mb-4 ${theme === 'light' ? 'text-gray-900' : 'text-white'}`}>Latest from GitHub</h2>
+        <p className={`${theme === 'light' ? 'text-gray-600' : 'text-blue-200/60'}`}>
           See what I&apos;ve been hacking on recently 🚀
         </p>
       </div>
@@ -90,12 +99,12 @@ const GitHubActivity = () => {
       <div className="max-w-2xl mx-auto space-y-3">
         {loading ? (
           [1, 2, 3].map(i => (
-            <div key={i} className="h-20 bg-white/5 rounded-xl animate-pulse" />
+            <div key={i} className={`h-20 rounded-xl animate-pulse ${theme === 'light' ? 'bg-gray-200' : 'bg-white/5'}`} />
           ))
         ) : (
           activities.length > 0 ? (
             activities.slice(0, 5).map((activity, index) => (
-              <ActivityCard key={activity.id} activity={activity} index={index} />
+              <ActivityCard key={activity.id} activity={activity} index={index} theme={theme} />
             ))
           ) : (
             <div className="text-center text-gray-500 py-10">No recent activity</div>
@@ -108,7 +117,10 @@ const GitHubActivity = () => {
           href={`https://github.com/${GITHUB_USERNAME}`}
           target="_blank"
           rel="noopener noreferrer"
-          className="inline-flex items-center gap-2 px-6 py-3 rounded-xl bg-white/5 text-white hover:bg-white/10 hover:scale-105 transition-all duration-300 border border-white/5"
+          className={`inline-flex items-center gap-2 px-6 py-3 rounded-xl transition-all duration-300 border ${theme === 'light'
+            ? 'bg-white text-gray-900 border-gray-200 hover:bg-gray-50 hover:shadow-lg'
+            : 'bg-white/5 text-white border-white/5 hover:bg-white/10 hover:scale-105'
+            }`}
         >
           <FaGithub /> View Full Profile
         </a>

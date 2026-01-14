@@ -1,38 +1,34 @@
-import React from "react";
-import { BrowserRouter, useLocation, useRoutes } from "react-router-dom";
-import { AnimatePresence } from "framer-motion";
-import CustomCursor from "./components/CustomCursor";
+import { useState, useEffect } from "react";
+import { BrowserRouter, Routes, Route } from "react-router-dom";
+import Layout from "./components/UI/Layout";
 import Home from "./pages/Home";
+import Projects from "./pages/Projects";
+import About from "./pages/About";
+import Contact from "./pages/Contact";
 
-function AnimatedRoutes() {
-  const element = useRoutes([
-    { path: "/", element: <Home /> }
-  ]);
+function App() {
+    const [theme, setTheme] = useState("light");
 
-  const location = useLocation();
+    const toggleTheme = () => {
+        setTheme((prev) => (prev === "light" ? "dark" : "light"));
+    };
 
-  if (!element) return null;
+    useEffect(() => {
+        document.body.className = theme;
+    }, [theme]);
 
-  return (
-    <AnimatePresence mode="wait">
-      {React.cloneElement(element, { key: location.pathname })}
-    </AnimatePresence>
-  );
+    return (
+        <BrowserRouter>
+            <Routes>
+                <Route path="/" element={<Layout theme={theme} toggleTheme={toggleTheme} />}>
+                    <Route index element={<Home theme={theme} />} />
+                    <Route path="projects" element={<Projects theme={theme} />} />
+                    <Route path="about" element={<About theme={theme} />} />
+                    <Route path="contact" element={<Contact theme={theme} />} />
+                </Route>
+            </Routes>
+        </BrowserRouter>
+    );
 }
-
-const App = () => {
-  return (
-    <div className="bg-[var(--background)] max-w-screen min-h-screen text-slate-300 antialiased selection:bg-cyan-300 selection:text-cyan-900">
-      <CustomCursor />
-      <div className="fixed top-0 -z-10 h-full w-full bg-neutral-950">
-        <div className="absolute inset-0 h-full w-full bg-[radial-gradient(#ffffff_1px,transparent_1px)] [background-size:24px_24px] opacity-20" />
-      </div>
-
-      <BrowserRouter>
-        <AnimatedRoutes />
-      </BrowserRouter>
-    </div>
-  );
-};
 
 export default App;
