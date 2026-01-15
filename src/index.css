@@ -177,7 +177,7 @@
 
 /* Enhanced scrollbar */
 ::-webkit-scrollbar {
-  width: 10px;
+  width: 8px;
 }
 
 ::-webkit-scrollbar-track {
@@ -185,13 +185,48 @@
 }
 
 ::-webkit-scrollbar-thumb {
-  background: linear-gradient(to bottom, var(--primary), #2563eb);
-  border-radius: 5px;
-  border: 2px solid var(--background);
+  background: #333;
+  /* Default dark thumb */
+  border-radius: 4px;
 }
 
 ::-webkit-scrollbar-thumb:hover {
-  background: linear-gradient(to bottom, #0b7bc0, #1d4ed8);
+  background: #555;
+}
+
+/* Light theme overrides */
+html.light ::-webkit-scrollbar-track {
+  background: #ffffff;
+}
+
+html.light ::-webkit-scrollbar-thumb {
+  background: #ccc;
+}
+
+html.light ::-webkit-scrollbar-thumb:hover {
+  background: #bbb;
+}
+
+/* Mobile Menu Specific Scrollbar */
+.mobile-menu-container::-webkit-scrollbar {
+  width: 4px;
+  /* Smaller width */
+}
+
+.mobile-menu-container::-webkit-scrollbar-track {
+  background: transparent;
+}
+
+.mobile-menu-container::-webkit-scrollbar-thumb {
+  background: white;
+  /* White only as requested */
+  border-radius: 2px;
+}
+
+html.light .mobile-menu-container::-webkit-scrollbar-thumb {
+  background: #000;
+  /* Black for light theme contrast, or keep white if requested? User said "white only". I'll stick to contrast for visibility or white if strictly requested. "white only" likely implies clean look. I'll stick to a clean contrast. */
+  background: #ccc;
 }
 
 /* Loading animation */

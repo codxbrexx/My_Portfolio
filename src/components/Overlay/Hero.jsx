@@ -73,7 +73,7 @@ const Hero = ({ theme }) => {
             {/* Name */}
             <h1
                 ref={nameRef}
-                className={`text-6xl md:text-8xl font-black tracking-tighter mb-4 ${theme === 'light' ? 'text-gray-950 drop-shadow-2xl' : 'text-white shadow-white/10'
+                className={`text-5xl md:text-8xl font-black tracking-tighter mb-4 ${theme === 'light' ? 'text-gray-950 drop-shadow-2xl' : 'text-white shadow-white/10'
                     }`}
             >
                 {PROFILE_DATA.name}
@@ -83,7 +83,7 @@ const Hero = ({ theme }) => {
             <div ref={titleRef} className="text-2xl md:text-4xl font-light mb-8 opacity-0">
                 <span className={`font-bold text-transparent bg-clip-text ${theme === 'light'
                     ? 'bg-gradient-to-r from-purple-600 to-indigo-600 drop-shadow-sm'
-                    : 'bg-gradient-to-r from-indigo-400 via-indigo-600 to-indigo-400 animate-gradient'
+                    : 'bg-gradient-to-r from-indigo-400 to-indigo-400 animate-gradient'
                     }`}>
                     Full Stack Developer | Algorithmic Thinker
                 </span>

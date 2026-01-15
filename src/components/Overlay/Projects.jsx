@@ -28,7 +28,7 @@ const Projects = ({ theme }) => {
                         whileInView={{ opacity: 1, y: 0 }}
                         viewport={{ once: true }}
                         transition={{ duration: 0.8, ease: "circOut" }}
-                        className={`text-7xl md:text-9xl font-black uppercase tracking-tighter mb-4 ${theme === 'light' ? 'text-black' : 'text-transparent bg-clip-text bg-gradient-to-b from-white to-white/20'
+                        className={`text-5xl md:text-9xl font-black uppercase tracking-tighter mb-4 ${theme === 'light' ? 'text-black' : 'text-transparent bg-clip-text bg-gradient-to-b from-white to-white/20'
                             }`}
                     >
                         SELECTED <br />WORKS
