@@ -39,7 +39,7 @@ const SkillBar = ({ skill, index, isVisible, theme }) => {
           <span className={`font-medium text-sm ${theme === 'light' ? 'text-gray-700' : 'text-blue-100/90'}`}>
             {skill.name}
           </span>
-          <span className={`text-[10px] px-2 py-0.5 rounded-full ${skillLevel.color} bg-white/5 border border-white/5`}>
+          <span className={`text-[10px] px-2 py-0.5 rounded-sm ${skillLevel.color} bg-white/5 border border-white/5`}>
             {skillLevel.text}
           </span>
         </div>
@@ -48,15 +48,15 @@ const SkillBar = ({ skill, index, isVisible, theme }) => {
         </span>
       </div>
 
-      <div className="relative h-1.5 bg-blue-900/30 rounded-full overflow-hidden">
+      <div className="relative h-2 bg-blue-900/30 rounded-none overflow-hidden">
         <motion.div
-          className="absolute inset-y-0 left-0 rounded-full bg-gradient-to-r from-[#0f9df8] to-blue-400"
+          className="absolute inset-y-0 left-0 bg-gradient-to-r from-[#0f9df8] to-blue-400"
           initial={{ width: "0%" }}
           animate={{ width: `${animatedLevel}%` }}
           transition={{ duration: 1, ease: "easeOut" }}
         />
         <motion.div
-          className="absolute inset-y-0 left-0 rounded-full bg-gradient-to-r from-[#0f9df8] to-blue-400 blur-sm opacity-50"
+          className="absolute inset-y-0 left-0 bg-gradient-to-r from-[#0f9df8] to-blue-400 blur-sm opacity-50"
           initial={{ width: "0%" }}
           animate={{ width: `${animatedLevel}%` }}
           transition={{ duration: 1, ease: "easeOut" }}
@@ -65,9 +65,8 @@ const SkillBar = ({ skill, index, isVisible, theme }) => {
     </motion.div>
   );
 };
-
 const Skills = ({ theme }) => {
-  const [activeCategory, setActiveCategory] = useState(0);
+  const [activeCategory, setActiveCategory] = useState(null);
 
   return (
     <section className="max-w-6xl mx-auto px-0 py-0 md:py-8">
@@ -92,9 +91,9 @@ const Skills = ({ theme }) => {
               transition={{ delay: index * 0.1 }}
               onClick={() => setActiveCategory(isActive ? null : index)}
               className={`
-                relative backdrop-blur-md rounded-2xl border 
+                relative backdrop-blur-md  border-2
                 ${isActive
-                  ? (theme === 'light' ? 'border-indigo-500/50 bg-white/60 shadow-lg' : 'border-[#0f9df8]/50 bg-[#0a0a0a]/40')
+                  ? (theme === 'light' ? 'border-indigo-500 bg-white/60 shadow-lg' : 'border-[#0f9df8] bg-[#0a0a0a]/40')
                   : (theme === 'light' ? 'border-gray-200 bg-white/40 hover:border-indigo-300' : 'border-white/10 bg-[#0a0a0a]/40 hover:border-white/20')
                 }
                 p-6 cursor-pointer transition-all duration-300 overflow-hidden
@@ -108,10 +107,10 @@ const Skills = ({ theme }) => {
 
               <div className="flex items-center justify-between mb-2">
                 <div className="flex items-center gap-4">
-                  <div className={`p-3 rounded-lg bg-gradient-to-br ${category.color} bg-opacity-10`}>
-                    <category.icon className={`${theme === 'light' ? 'text-white' : 'text-white'} text-xl`} />
+                  <div className={`p-3 rounded-none bg-gradient-to-br ${category.color} bg-opacity-10`}>
+                    <category.icon className={`${theme === 'light' ? 'text-black' : 'text-white'} text-xl`} />
                   </div>
-                  <h3 className={`text-xl font-bold ${theme === 'light' ? 'text-gray-900' : 'text-white'}`}>{category.title}</h3>
+                  <h3 className={`text-xl font-bold font-['Syne'] ${theme === 'light' ? 'text-gray-900' : 'text-white'}`}>{category.title}</h3>
                 </div>
                 <motion.div
                   animate={{ rotate: isActive ? 180 : 0 }}
@@ -124,12 +123,12 @@ const Skills = ({ theme }) => {
               {!isActive && (
                 <div className="flex flex-wrap gap-2 mt-4 ml-14">
                   {category.skills.slice(0, 3).map((skill, i) => (
-                    <span key={i} className={`text-xs px-2 py-1 rounded-md ${theme === 'light' ? 'bg-gray-100 text-gray-600' : 'bg-white/5 text-gray-400'}`}>
+                    <span key={i} className={`text-xs px-2 py-1 rounded-sm uppercase tracking-wider font-bold ${theme === 'light' ? 'bg-gray-100 text-gray-600' : 'bg-white/5 text-gray-400'}`}>
                       {skill.name}
                     </span>
                   ))}
                   {category.skills.length > 3 && (
-                    <span className={`text-xs px-2 py-1 rounded-md ${theme === 'light' ? 'bg-gray-100 text-gray-500' : 'bg-white/5 text-gray-500'}`}>
+                    <span className={`text-xs px-2 py-1 rounded-sm uppercase tracking-wider font-bold ${theme === 'light' ? 'bg-gray-100 text-gray-500' : 'bg-white/5 text-gray-500'}`}>
                       +{category.skills.length - 3} more
                     </span>
                   )}
@@ -162,9 +161,10 @@ const Skills = ({ theme }) => {
               </AnimatePresence>
             </motion.div>
           );
-        })}
-      </div>
-    </section>
+        })
+        }
+      </div >
+    </section >
   );
 };
 

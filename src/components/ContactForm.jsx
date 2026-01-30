@@ -1,20 +1,12 @@
 import { useState, useRef } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
-import { FiSend, FiBriefcase, FiUsers, FiMessageSquare, FiHelpCircle } from "react-icons/fi";
+import { FiSend, FiBriefcase, FiUsers, FiMessageSquare, FiHelpCircle, FiCheck, FiX } from "react-icons/fi";
 
-// Form configuration
 const CONTACT_TYPES = [
-  { id: 'job', label: 'Job Opportunity', icon: <FiBriefcase />, color: 'from-green-500 to-emerald-500' },
-  { id: 'project', label: 'Project', icon: <FiUsers />, color: 'from-blue-500 to-cyan-500' },
-  { id: 'consultation', label: 'Consultation', icon: <FiMessageSquare />, color: 'from-violet-500 to-pink-500' },
-  { id: 'other', label: 'Other', icon: <FiHelpCircle />, color: 'from-orange-500 to-red-500' }
-];
-
-const URGENCY_LEVELS = [
-  { id: 'low', label: 'Low Priority', color: 'text-gray-400' },
-  { id: 'medium', label: 'Medium', color: 'text-yellow-400' },
-  { id: 'high', label: 'High Priority', color: 'text-orange-400' },
-  { id: 'urgent', label: 'Urgent', color: 'text-red-400' }
+  { id: 'job', label: 'Job Opportunity', icon: <FiBriefcase />, color: 'border-green-500 text-green-500 shadow-green-500/20' },
+  { id: 'project', label: 'Project', icon: <FiUsers />, color: 'border-blue-500 text-blue-500 shadow-blue-500/20' },
+  { id: 'consultation', label: 'Consultation', icon: <FiMessageSquare />, color: 'border-violet-500 text-violet-500 shadow-violet-500/20' },
+  { id: 'other', label: 'Other', icon: <FiHelpCircle />, color: 'border-orange-500 text-orange-500 shadow-orange-500/20' }
 ];
 
 const FormField = ({ label, error, children, required = false, theme }) => (
@@ -23,72 +15,63 @@ const FormField = ({ label, error, children, required = false, theme }) => (
     animate={{ opacity: 1, y: 0 }}
     className="space-y-2"
   >
-    <label className={`block text-sm font-medium ml-1 ${theme === 'light' ? 'text-gray-700' : 'text-blue-200/80'}`}>
-      {label} {required && <span className="text-pink-400">*</span>}
+    <label className={`block text-xs font-mono tracking-widest uppercase ml-1 ${theme === 'light' ? 'text-gray-500' : 'text-gray-400'}`}>
+      {label} {required && <span className="text-pink-500">*</span>}
     </label>
     {children}
     <AnimatePresence>
       {error && (
-        <motion.p
+        <motion.div
           initial={{ opacity: 0, height: 0 }}
           animate={{ opacity: 1, height: 'auto' }}
           exit={{ opacity: 0, height: 0 }}
-          className="text-pink-400 text-xs ml-1"
+          className="flex items-center gap-2 text-pink-500 text-xs font-mono ml-1 mt-1"
         >
-          {error}
-        </motion.p>
+          <FiX size={10} /> {error}
+        </motion.div>
       )}
     </AnimatePresence>
   </motion.div>
 );
 
 const ContactTypeSelector = ({ selected, onSelect, theme }) => (
-  <div className="grid grid-cols-2 lg:grid-cols-4 gap-3">
-    {CONTACT_TYPES.map((type) => (
-      <motion.button
-        key={type.id}
-        type="button"
-        onClick={() => onSelect(type.id)}
-        whileHover={{ scale: 1.02 }}
-        whileTap={{ scale: 0.98 }}
-        className={`
-          relative p-4 rounded-xl text-center transition-all duration-300 border
-          ${selected === type.id
-            ? (theme === 'light'
-              ? 'bg-black border-black text-white shadow-lg'
-              : 'bg-[#0a0a0a] border-violet-500/50 text-white shadow-[0_0_20px_rgba(139,92,246,0.2)]')
-            : (theme === 'light'
-              ? 'bg-white border-gray-200 text-gray-500 hover:border-black hover:bg-gray-50'
-              : 'bg-[#0a0a0a]/40 border-white/5 text-gray-400 hover:border-white/10 hover:bg-[#0a0a0a]/60')
-          }
-        `}
-      >
-        <div className="text-2xl mb-2 flex justify-center">{type.icon}</div>
-        <div className="text-xs font-medium">{type.label}</div>
+  <div className="grid grid-cols-2 lg:grid-cols-4 gap-4">
+    {CONTACT_TYPES.map((type) => {
+      const isSelected = selected === type.id;
+      return (
+        <button
+          key={type.id}
+          type="button"
+          onClick={() => onSelect(type.id)}
+          className={`
+                    relative p-6 text-center border-2 transition-all duration-300 group
+                    ${isSelected
+              ? (theme === 'light' ? `bg-white ${type.color}` : `bg-[#0a0a0a] ${type.color}`)
+              : (theme === 'light' ? 'bg-gray-50 border-gray-200 hover:border-black' : 'bg-white/5 border-white/5 hover:border-white')
+            }
+                `}
+        >
+          <div className={`text-2xl mb-3 flex justify-center transition-transform duration-300 group-hover:scale-110 ${isSelected ? '' : (theme === 'light' ? 'text-gray-400' : 'text-gray-500')}`}>
+            {type.icon}
+          </div>
+          <div className={`text-xs font-mono font-bold uppercase ${isSelected ? '' : (theme === 'light' ? 'text-gray-600' : 'text-gray-400')}`}>
+            {type.label}
+          </div>
 
-        {selected === type.id && (
-          <motion.div
-            layoutId="contactTypeSelector"
-            className={`absolute inset-0 rounded-xl bg-gradient-to-r ${type.color} opacity-10`}
-            transition={{ duration: 0.2 }}
-          />
-        )}
-      </motion.button>
-    ))}
+          {/* Active Indicator Corner */}
+          {isSelected && (
+            <div className={`absolute top-0 right-0 w-3 h-3 ${type.color.split(' ')[0].replace('border-', 'bg-')}`} />
+          )}
+        </button>
+      );
+    })}
   </div>
 );
 
 export default function ContactForm({ theme }) {
   const [formData, setFormData] = useState({
-    name: '',
-    email: '',
-    company: '',
-    contactType: '',
-    urgency: 'medium',
-    subject: '',
-    message: '',
-    budget: '',
-    timeline: ''
+    name: '', email: '', company: '', contactType: '', urgency: 'medium',
+    subject: '', message: '', budget: '', timeline: ''
   });
 
   const [errors, setErrors] = useState({});
@@ -98,15 +81,12 @@ export default function ContactForm({ theme }) {
 
   const validateForm = () => {
     const newErrors = {};
-    if (!formData.name.trim()) newErrors.name = 'Name is required';
-    if (!formData.email.trim()) {
-      newErrors.email = 'Email is required';
-    } else if (!/\S+@\S+\.\S+/.test(formData.email)) {
-      newErrors.email = 'Please enter a valid email';
-    }
-    if (!formData.contactType) newErrors.contactType = 'Please select a contact type';
-    if (!formData.subject.trim()) newErrors.subject = 'Subject is required';
-    if (!formData.message.trim()) newErrors.message = 'Message is required';
+    if (!formData.name.trim()) newErrors.name = 'Name Req.';
+    if (!formData.email.trim()) newErrors.email = 'Email Req.';
+    else if (!/\S+@\S+\.\S+/.test(formData.email)) newErrors.email = 'Invalid Email';
+    if (!formData.contactType) newErrors.contactType = 'Select Type';
+    if (!formData.subject.trim()) newErrors.subject = 'Subject Req.';
+    if (!formData.message.trim()) newErrors.message = 'Message Req.';
 
     setErrors(newErrors);
     return Object.keys(newErrors).length === 0;
@@ -115,10 +95,7 @@ export default function ContactForm({ theme }) {
   const handleSubmit = async (e) => {
     e.preventDefault();
     if (!validateForm()) return;
-
     setIsSubmitting(true);
-
-    // Simulate API call
     setTimeout(() => {
       setIsSubmitting(false);
       setIsSubmitted(true);
@@ -140,33 +117,33 @@ export default function ContactForm({ theme }) {
       <motion.div
         initial={{ opacity: 0, scale: 0.9 }}
         animate={{ opacity: 1, scale: 1 }}
-        className={`text-center py-20 px-6 rounded-2xl border ${theme === 'light'
-          ? 'bg-green-50 border-green-200'
-          : 'bg-gradient-to-b from-green-500/10 to-transparent border-green-500/20'
+        className={`text-center py-20 px-8 border-2 ${theme === 'light'
+          ? 'bg-green-50 border-green-500 text-green-900'
+          : 'bg-green-500/10 border-green-500 text-green-100'
           }`}
       >
-        <div className={`w-20 h-20 rounded-full flex items-center justify-center mx-auto mb-6 text-4xl ${theme === 'light' ? 'bg-green-100' : 'bg-green-500/20'}`}>
-          ✅
-        </div>
-        <h3 className={`text-2xl font-bold mb-2 ${theme === 'light' ? 'text-gray-900' : 'text-white'}`}>Message Sent Successfully!</h3>
-        <p className={`mb-8 max-w-md mx-auto ${theme === 'light' ? 'text-gray-600' : 'text-gray-400'}`}>
-          Thank you for reaching out! I&apos;ll review your message and get back to you within 24 hours.
+        <div className="text-6xl mb-6">✨</div>
+        <h3 className="text-3xl font-['Syne'] font-bold uppercase mb-4">Message Sent</h3>
+        <p className="font-mono text-sm opacity-80 mb-8 max-w-md mx-auto">
+          Signal received. I will analyze your request and re-establish communication shortly.
         </p>
         <button
           onClick={() => setIsSubmitted(false)}
-          className="px-8 py-3 rounded-xl font-medium bg-green-500 hover:bg-green-400 text-black transition-colors"
+          className={`px-8 py-3 text-sm font-bold uppercase tracking-wider border-2 transition-all ${theme === 'light'
+            ? 'border-green-900 text-green-900 hover:bg-green-900 hover:text-white'
+            : 'border-green-500 text-green-500 hover:bg-green-500 hover:text-black'}`}
         >
-          Send Another Message
+          Send Another
         </button>
       </motion.div>
     );
   }
 
   const inputClassName = `
-    w-full px-4 py-3 rounded-xl border transition-all duration-300 focus:outline-none 
+    w-full px-4 py-4 rounded-none border-2 outline-none transition-all duration-300 font-mono text-sm
     ${theme === 'light'
-      ? 'bg-white border-gray-200 text-gray-900 placeholder-gray-400 focus:border-black focus:ring-1 focus:ring-black'
-      : 'bg-[#0a0a0a]/50 border-white/10 text-white placeholder-gray-500 focus:border-violet-500/50 focus:ring-1 focus:ring-violet-500/50 focus:bg-[#0a0a0a]/80'
+      ? 'bg-gray-50 border-gray-200 text-black placeholder-gray-400 focus:border-violet-600 focus:bg-white'
+      : 'bg-[#0a0a0a] border-white/10 text-white placeholder-gray-600 focus:border-violet-500 focus:bg-black'
     }
   `;
 
@@ -174,11 +151,11 @@ export default function ContactForm({ theme }) {
     <motion.div
       initial={{ opacity: 0, y: 20 }}
       animate={{ opacity: 1, y: 0 }}
-      className="max-w-3xl mx-auto"
+      className="max-w-4xl mx-auto"
     >
-      <form ref={formRef} onSubmit={handleSubmit} className="space-y-8">
+      <form ref={formRef} onSubmit={handleSubmit} className="space-y-12">
         {/* Contact Type */}
-        <FormField label="What are you interested in?" required error={errors.contactType} theme={theme}>
+        <FormField label="1. Project Context" required error={errors.contactType} theme={theme}>
           <ContactTypeSelector
             selected={formData.contactType}
             onSelect={(type) => setFormData(prev => ({ ...prev, contactType: type }))}
@@ -187,87 +164,64 @@ export default function ContactForm({ theme }) {
         </FormField>
 
         {/* Basic Info */}
-        <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-          <FormField label="Your Name" required error={errors.name} theme={theme}>
-            <input type="text" name="name" value={formData.name} onChange={handleInputChange} placeholder="Rohit Sharma" className={inputClassName} />
+        <div className="space-y-8">
+          <div className="flex items-center gap-4 mb-4 opacity-50 font-mono text-xs uppercase tracking-widest">
+            <span>// 02. Identification</span>
+            <div className="h-px flex-1 bg-current" />
+          </div>
+
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
+            <FormField label="Full Name" required error={errors.name} theme={theme}>
+              <input type="text" name="name" value={formData.name} onChange={handleInputChange} placeholder="Your Name" className={inputClassName} />
+            </FormField>
+            <FormField label="Email Address" required error={errors.email} theme={theme}>
+              <input type="email" name="email" value={formData.email} onChange={handleInputChange} placeholder="Your Email" className={inputClassName} />
+            </FormField>
+          </div>
+        </div>
+
+        {/* Details */}
+        <div className="space-y-8">
+          <div className="flex items-center gap-4 mb-4 opacity-50 font-mono text-xs uppercase tracking-widest">
+            <span>// 03. Transmission</span>
+            <div className="h-px flex-1 bg-current" />
+          </div>
+
+          <FormField label="Subject" required error={errors.subject} theme={theme}>
+            <input type="text" name="subject" value={formData.subject} onChange={handleInputChange} placeholder="Brief summary of your inquiry..." className={inputClassName} />
           </FormField>
-          <FormField label="Email Address" required error={errors.email} theme={theme}>
-            <input type="email" name="email" value={formData.email} onChange={handleInputChange} placeholder="abc@gmail.com" className={inputClassName} />
+
+          <FormField label="Message Payload" required error={errors.message} theme={theme}>
+            <textarea
+              name="message"
+              value={formData.message}
+              onChange={handleInputChange}
+              placeholder="Detailed project requirements, timeline estimates, or general queries..."
+              rows={6}
+              className={`${inputClassName} resize-none`}
+            />
           </FormField>
         </div>
 
-        <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-          <FormField label="Company (Optional)" theme={theme}>
-            <input type="text" name="company" value={formData.company} onChange={handleInputChange} placeholder="Your Company" className={inputClassName} />
-          </FormField>
-          <FormField label="Urgency" theme={theme}>
-            <div className="relative">
-              <select name="urgency" value={formData.urgency} onChange={handleInputChange} className={`${inputClassName} appearance-none cursor-pointer`}>
-                {URGENCY_LEVELS.map(level => (
-                  <option key={level.id} value={level.id} className={theme === 'light' ? 'bg-white text-gray-900' : 'bg-[#1a1a1a] text-white'}>{level.label}</option>
-                ))}
-              </select>
-            </div>
-          </FormField>
+        <div className="pt-8">
+          <button
+            type="submit"
+            disabled={isSubmitting}
+            className={`w-full py-5 text-sm font-bold uppercase tracking-widest border-2 transition-all duration-300 relative overflow-hidden group
+                ${theme === 'light'
+                ? 'bg-black text-white border-black hover:bg-gray-900'
+                : 'bg-white text-black border-white hover:bg-gray-200'
+              } ${isSubmitting ? 'opacity-50 cursor-not-allowed' : ''}`}
+          >
+            <span className="relative z-10 flex items-center justify-center gap-3">
+              {isSubmitting ? 'Transmitting...' : (
+                <>
+                  Initialize Transmission <FiSend />
+                </>
+              )}
+            </span>
+          </button>
         </div>
-
-        {/* Subject */}
-        <FormField label="Subject" required error={errors.subject} theme={theme}>
-          <input type="text" name="subject" value={formData.subject} onChange={handleInputChange} placeholder="Brief subject..." className={inputClassName} />
-        </FormField>
-
-        <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-          <FormField label="Budget Range (Optional)" theme={theme}>
-            <select name="budget" value={formData.budget} onChange={handleInputChange} className={`${inputClassName} appearance-none cursor-pointer`}>
-              <option value="" className={theme === 'light' ? 'bg-white' : 'bg-[#1a1a1a]'}>Select Range</option>
-              <option value="<5k" className={theme === 'light' ? 'bg-white' : 'bg-[#1a1a1a]'}>Under $5,000</option>
-              <option value="5k-10k" className={theme === 'light' ? 'bg-white' : 'bg-[#1a1a1a]'}>$5,000 - $10,000</option>
-              <option value="10k-30k" className={theme === 'light' ? 'bg-white' : 'bg-[#1a1a1a]'}>$10,000 - $30,000</option>
-              <option value=">30k" className={theme === 'light' ? 'bg-white' : 'bg-[#1a1a1a]'}>$30,000+</option>
-            </select>
-          </FormField>
-          <FormField label="Timeline (Optional)" theme={theme}>
-            <select name="timeline" value={formData.timeline} onChange={handleInputChange} className={`${inputClassName} appearance-none cursor-pointer`}>
-              <option value="" className={theme === 'light' ? 'bg-white' : 'bg-[#1a1a1a]'}>Select Timeline</option>
-              <option value="asap" className={theme === 'light' ? 'bg-white' : 'bg-[#1a1a1a]'}>ASAP</option>
-              <option value="1mo" className={theme === 'light' ? 'bg-white' : 'bg-[#1a1a1a]'}>Within 1 month</option>
-              <option value="1-3mo" className={theme === 'light' ? 'bg-white' : 'bg-[#1a1a1a]'}>1-3 months</option>
-              <option value="flexible" className={theme === 'light' ? 'bg-white' : 'bg-[#1a1a1a]'}>Flexible</option>
-            </select>
-          </FormField>
-        </div>
-
-        {/* Message */}
-        <FormField label="Project Details" required error={errors.message} theme={theme}>
-          <textarea
-            name="message"
-            value={formData.message}
-            onChange={handleInputChange}
-            placeholder="Tell me about your project context, goals, and any specific requirements..."
-            rows={5}
-            className={`${inputClassName} resize-none`}
-          />
-        </FormField>
-
-        <motion.button
-          type="submit"
-          disabled={isSubmitting}
-          whileHover={{ scale: 1.02 }}
-          whileTap={{ scale: 0.98 }}
-          className={`w-full py-4 rounded-xl font-bold text-lg flex items-center justify-center gap-2 shadow-lg
-            ${isSubmitting
-              ? 'bg-gray-800 text-gray-400 cursor-not-allowed'
-              : (theme === 'light'
-                ? 'bg-black text-white hover:bg-gray-800'
-                : 'bg-gradient-to-r border-gray-500 border hover:bg-violet-600 text-white shadow-violet-600/20')
-            } transition-all duration-300`}
-        >
-          {isSubmitting ? (
-            <>Sending...</>
-          ) : (
-            <>Send Message <FiSend /></>
-          )}
-        </motion.button>
       </form>
     </motion.div>
   );

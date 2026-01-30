@@ -3,6 +3,7 @@ import { Link } from "react-router-dom";
 import gsap from "gsap";
 import { PROFILE_DATA, HERO_CONTENT } from "../../utils/data";
 import { FaGithub, FaLinkedin, FaTwitter } from "react-icons/fa";
+import { SiCodeforces, SiLeetcode, SiCodechef } from "react-icons/si";
 import HeroImage from "../../assets/Hero6.png";
 
 const Hero = ({ theme }) => {
@@ -62,50 +63,62 @@ const Hero = ({ theme }) => {
         >
             {/* Logo / Avatar */}
             <div ref={logoRef} className="mb-8 relative group">
-                <div className="absolute -inset-1 bg-gradient-to-r from-indigo-500 via-indigo-600 to-indigo-500 rounded-full blur opacity-75 group-hover:opacity-100 transition duration-1000 group-hover:duration-200"></div>
+                <div className="absolute -inset-1 rounded-full bg-gradient-to-r from-blue-700 via-blue-600 to-blue-700 opacity-75 group-hover:opacity-100 transition duration-1000 group-hover:duration-200 blur-sm"></div>
                 <img
                     src={HeroImage}
                     alt="Logo"
-                    className="relative w-32 h-32 md:w-40 md:h-40 rounded-full object-cover border-4 border-white/10 shadow-2xl"
+                    className="relative w-32 h-32 md:w-40 md:h-40 rounded-full object-cover border-2 border-white/20 shadow-2xl transition-transform duration-500 group-hover:scale-105"
                 />
             </div>
 
             {/* Name */}
             <h1
                 ref={nameRef}
-                className={`text-5xl md:text-8xl font-black tracking-tighter mb-4 ${theme === 'light' ? 'text-gray-950 drop-shadow-2xl' : 'text-white shadow-white/10'
+                className={`text-4xl md:text-7xl font-['Syne'] font-black tracking-tighter mb-6 uppercase ${theme === 'light' ? 'text-black' : 'text-white'
                     }`}
             >
                 {PROFILE_DATA.name}
             </h1>
 
             {/* Title */}
-            <div ref={titleRef} className="text-2xl md:text-4xl font-light mb-8 opacity-0">
+            <div ref={titleRef} className="text-xl md:text-4xl font-light mb-8 opacity-0">
+                <span className={`font-mono text-xs md:text-sm tracking-[0.5em] uppercase block mb-4 opacity-50`}>
+                    Full Stack Developer
+                </span>
                 <span className={`font-bold text-transparent bg-clip-text ${theme === 'light'
-                    ? 'bg-gradient-to-r from-purple-600 to-indigo-600 drop-shadow-sm'
-                    : 'bg-gradient-to-r from-indigo-400 to-indigo-400 animate-gradient'
+                    ? 'bg-gradient-to-r from-purple-600 to-indigo-600'
+                    : 'bg-gradient-to-r from-white via-indigo-200 to-white animate-gradient'
                     }`}>
-                    Full Stack Developer | Algorithmic Thinker
+                    Algorithmic Thinker
                 </span>
             </div>
 
             {/* Bio */}
             <p
                 ref={bioRef}
-                className={`text-lg md:text-xl leading-relaxed max-w-2xl mx-auto mb-12 opacity-0 ${theme === 'light' ? 'text-gray-900' : 'text-slate-300'}`}
+                className={`text-lg md:text-xl leading-relaxed max-w-2xl mx-auto mb-12 opacity-0 font-sans ${theme === 'light' ? 'text-gray-800' : 'text-gray-400'}`}
             >
                 {HERO_CONTENT.introduction}
             </p>
 
+            {/* Coding Profiles */}
+            <div
+                className="flex items-center gap-6 mb-12 opacity-80"
+            >
+                <SocialLink href="https://codeforces.com/profile/mozammilali" icon={<SiCodeforces />} color="hover:text-red-500" theme={theme} />
+                <SocialLink href="https://leetcode.com/mozammilali01" icon={<SiLeetcode />} color="hover:text-yellow-500" theme={theme} />
+                <SocialLink href="https://www.codechef.com/users/" icon={<SiCodechef />} color="hover:text-amber-700" theme={theme} />
+            </div>
+
             {/* Actions */}
             <div
                 ref={actionsRef}
-                className="flex flex-col md:flex-row items-center gap-6 mb-16 opacity-0"
+                className="flex flex-col md:flex-row items-center gap-6 mb-16 opacity-0 w-full md:w-auto"
             >
                 <a
                     href={HERO_CONTENT.resumeLink}
                     download
-                    className={`flex items-center gap-2 px-8 py-3.5 rounded-full font-bold uppercase tracking-widest text-sm transition-all hover:scale-105 active:scale-95 ${theme === 'light'
+                    className={`flex items-center gap-2 px-10 py-4 font-['Syne'] font-bold uppercase tracking-widest text-sm transition-all hover:-translate-y-1 hover:shadow-lg ${theme === 'light'
                         ? 'bg-black text-white hover:bg-gray-800'
                         : 'bg-white text-black hover:bg-gray-200'
                         }`}
@@ -114,7 +127,7 @@ const Hero = ({ theme }) => {
                 </a>
                 <Link
                     to="/contact"
-                    className={`px-8 py-3.5 rounded-full border font-bold uppercase tracking-widest text-sm transition-all hover:scale-105 active:scale-95 ${theme === 'light'
+                    className={`px-10 py-4 border-2 font-['Syne'] font-bold uppercase tracking-widest text-sm transition-all hover:-translate-y-1 hover:shadow-lg ${theme === 'light'
                         ? 'border-black text-black hover:bg-black hover:text-white'
                         : 'border-white text-white hover:bg-white hover:text-black'
                         }`}
@@ -126,20 +139,25 @@ const Hero = ({ theme }) => {
             {/* Socials */}
             <div
                 ref={socialsRef}
-                className={`flex items-center gap-8 text-2xl opacity-0 ${theme === 'light' ? 'text-gray-600' : 'text-gray-400'}`}
+                className={`flex items-center gap-8 text-2xl opacity-0 ${theme === 'light' ? 'text-gray-600' : 'text-gray-500'}`}
             >
-                <a href="https://github.com/codxbrexx" target="_blank" rel="noopener noreferrer" className="hover:text-indigo-500 hover:scale-125 transition-all duration-300">
-                    <FaGithub />
-                </a>
-                <a href="https://linkedin.com/in/mozammilali" target="_blank" rel="noopener noreferrer" className="hover:text-indigo-500 hover:scale-125 transition-all duration-300">
-                    <FaLinkedin />
-                </a>
-                <a href="https://twitter.com/mozammilali" target="_blank" rel="noopener noreferrer" className="hover:text-indigo-500 hover:scale-125 transition-all duration-300">
-                    <FaTwitter />
-                </a>
+                <SocialLink href="https://github.com/codxbrexx" icon={<FaGithub />} color="hover:text-white" theme={theme} />
+                <SocialLink href="https://linkedin.com/in/mozammilali" icon={<FaLinkedin />} color="hover:text-blue-500" theme={theme} />
+                <SocialLink href="https://twitter.com/mozammilali" icon={<FaTwitter />} color="hover:text-sky-500" theme={theme} />
             </div>
         </div>
     );
 };
+
+const SocialLink = ({ href, icon, color, theme }) => (
+    <a
+        href={href}
+        target="_blank"
+        rel="noopener noreferrer"
+        className={`transition-all duration-300 hover:scale-110 ${theme === 'light' ? 'text-gray-700' : 'text-gray-400'} ${color}`}
+    >
+        <span className="text-3xl">{icon}</span>
+    </a>
+);
 
 export default Hero;

@@ -69,7 +69,7 @@ const ProjectCard = ({ project, index, theme }) => {
                 scale={1.02}
                 className="h-full"
             >
-                <div className={`group relative h-full flex flex-col rounded-3xl overflow-hidden border backdrop-blur-md transition-all duration-500 ${theme === 'light'
+                <div className={`group relative h-full flex flex-col rounded-sm overflow-hidden border backdrop-blur-md transition-all duration-500 ${theme === 'light'
                     ? 'bg-white/60 border-white/60 hover:border-indigo-500/30 hover:shadow-2xl hover:shadow-indigo-500/10'
                     : 'bg-white/5 border-white/10 hover:border-indigo-500/40 hover:shadow-2xl hover:shadow-indigo-500/20'
                     }`}>
@@ -121,7 +121,7 @@ const ProjectCard = ({ project, index, theme }) => {
 
                         {/* Category Badge */}
                         <div className="absolute top-4 left-4 z-20">
-                            <span className={`px-4 py-1.5 rounded-full text-xs font-bold uppercase tracking-wider backdrop-blur-md border shadow-sm ${theme === 'light'
+                            <span className={`px-4 py-1.5 rounded-full text-xs font-bold uppercase tracking-wider backdrop-blur-md border shadow-sm font-['Syne'] ${theme === 'light'
                                 ? 'bg-white/90 border-white text-indigo-600'
                                 : 'bg-black/60 border-white/10 text-indigo-400'
                                 }`}>
@@ -133,7 +133,7 @@ const ProjectCard = ({ project, index, theme }) => {
                     {/* Content Area */}
                     <div className="flex-1 p-6 md:p-8 flex flex-col relative z-20">
                         <div className="mb-auto">
-                            <h3 className={`text-2xl font-black mb-3 flex items-center gap-2 tracking-tight ${theme === 'light' ? 'text-gray-900' : 'text-white'
+                            <h3 className={`text-3xl font-['Syne'] font-bold mb-3 flex items-center gap-2 tracking-tight ${theme === 'light' ? 'text-gray-900' : 'text-white'
                                 }`}>
                                 {project.title}
                                 <FiArrowUpRight className={`opacity-0 group-hover:opacity-100 transition-opacity duration-300 transform group-hover:translate-x-1 group-hover:-translate-y-1 ${theme === 'light' ? 'text-indigo-600' : 'text-indigo-400'
@@ -150,7 +150,7 @@ const ProjectCard = ({ project, index, theme }) => {
                             {project.skills.slice(0, 4).map((skill, idx) => (
                                 <span
                                     key={idx}
-                                    className={`text-[10px] uppercase tracking-wider font-bold px-3 py-1.5 rounded-md ${theme === 'light'
+                                    className={`text-[10px] uppercase tracking-wider font-bold px-3 py-1.5 rounded-md font-['Syne'] ${theme === 'light'
                                         ? 'bg-indigo-50 text-indigo-600'
                                         : 'bg-indigo-500/10 text-indigo-300'
                                         }`}

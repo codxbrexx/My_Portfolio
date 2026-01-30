@@ -16,7 +16,11 @@ const Layout = ({ theme, toggleTheme }) => {
             {/* Persistent 3D Background*/}
             {location.pathname === '/' && theme === 'dark' && (
                 <div className="fixed inset-0 z-0 pointer-events-none">
-                    <Canvas camera={{ position: [0, 0, 5], fov: 75 }}>
+                    <Canvas
+                        camera={{ position: [0, 0, 5], fov: 75 }}
+                        eventSource={document.getElementById('root')}
+                        eventPrefix="client"
+                    >
                         <color attach="background" args={[theme === 'light' ? '#ffffff' : '#000000']} />
                         <ambientLight intensity={0.5} />
                         <pointLight position={[10, 10, 10]} intensity={1} />

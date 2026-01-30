@@ -3,17 +3,18 @@ import { motion } from 'framer-motion';
 import { GITHUB_USERNAME } from '../utils/data';
 import { FaGithub, FaCodeBranch, FaStar, FaRegDotCircle } from "react-icons/fa";
 import { BiGitRepoForked, BiGitPullRequest, BiGitCommit } from "react-icons/bi";
+import { FiExternalLink } from "react-icons/fi";
 
 const ActivityCard = ({ activity, index, theme }) => {
   const getIcon = (type) => {
     switch (type) {
-      case 'PushEvent': return <BiGitCommit className={theme === 'light' ? 'text-green-600' : 'text-green-400'} />;
-      case 'PullRequestEvent': return <BiGitPullRequest className={theme === 'light' ? 'text-purple-600' : 'text-purple-400'} />;
-      case 'WatchEvent': return <FaStar className={theme === 'light' ? 'text-yellow-600' : 'text-yellow-400'} />;
-      case 'ForkEvent': return <BiGitRepoForked className={theme === 'light' ? 'text-blue-600' : 'text-blue-400'} />;
-      case 'CreateEvent': return <FaCodeBranch className={theme === 'light' ? 'text-cyan-600' : 'text-cyan-400'} />;
-      case 'IssuesEvent': return <FaRegDotCircle className={theme === 'light' ? 'text-red-600' : 'text-red-400'} />;
-      default: return <FaGithub className={theme === 'light' ? 'text-gray-600' : 'text-gray-400'} />;
+      case 'PushEvent': return <BiGitCommit />;
+      case 'PullRequestEvent': return <BiGitPullRequest />;
+      case 'WatchEvent': return <FaStar />;
+      case 'ForkEvent': return <BiGitRepoForked />;
+      case 'CreateEvent': return <FaCodeBranch />;
+      case 'IssuesEvent': return <FaRegDotCircle />;
+      default: return <FaGithub />;
     }
   };
 
@@ -32,29 +33,32 @@ const ActivityCard = ({ activity, index, theme }) => {
 
   return (
     <motion.div
-      initial={{ opacity: 0, x: -20 }}
-      animate={{ opacity: 1, x: 0 }}
-      transition={{ delay: index * 0.1 }}
-      className={`flex items-center gap-4 p-4 rounded-xl border transition-colors cursor-pointer group ${theme === 'light'
-        ? 'bg-white border-gray-200 hover:border-blue-400 hover:shadow-md'
-        : 'bg-white/5 border-white/5 hover:bg-white/10 hover:border-white/10'
+      initial={{ opacity: 0, y: 10 }}
+      animate={{ opacity: 1, y: 0 }}
+      transition={{ delay: index * 0.05 }}
+      className={`group relative border-b p-4 flex items-center justify-between gap-4 transition-all hover:pl-6 ${theme === 'light'
+        ? 'border-gray-200 hover:bg-gray-50 text-gray-900'
+        : 'border-white/10 hover:bg-white/5 text-gray-100'
         }`}
       onClick={() => window.open(`https://github.com/${activity.repo.name}`, '_blank')}
     >
-      <div className={`text-xl p-2 rounded-full ring-1 group-hover:scale-110 transition-transform ${theme === 'light'
-        ? 'bg-gray-50 ring-gray-200'
-        : 'bg-white/5 ring-white/10'
-        }`}>
-        {getIcon(activity.type)}
+      <div className="flex items-center gap-4 flex-1">
+        <div className={`font-mono text-xs opacity-50 w-24 tabular-nums ${theme === 'light' ? 'text-gray-500' : 'text-gray-500'}`}>
+          {new Date(activity.created_at).toLocaleDateString(undefined, { month: 'short', day: 'numeric' })}
+        </div>
+
+        <div className={`p-2 border transition-colors ${theme === 'light' ? 'border-gray-200 bg-white group-hover:border-black group-hover:text-black' : 'border-white/10 bg-black group-hover:border-white group-hover:text-white'}`}>
+          {getIcon(activity.type)}
+        </div>
+
+        <div className="flex-1">
+          <p className="font-mono text-sm tracking-tight truncate">
+            {getDescription(activity)}
+          </p>
+        </div>
       </div>
-      <div className="flex-1 min-w-0">
-        <p className={`text-sm font-medium truncate group-hover:text-blue-400 transition-colors ${theme === 'light' ? 'text-gray-900' : 'text-white'}`}>
-          {getDescription(activity)}
-        </p>
-        <p className={`text-xs mt-1 ${theme === 'light' ? 'text-gray-500' : 'text-gray-500'}`}>
-          {new Date(activity.created_at).toLocaleDateString()} • {new Date(activity.created_at).toLocaleTimeString()}
-        </p>
-      </div>
+
+      <FiExternalLink className="opacity-0 group-hover:opacity-100 transition-opacity" />
     </motion.div>
   );
 };
@@ -64,7 +68,7 @@ const GitHubActivity = ({ theme }) => {
   const [loading, setLoading] = useState(true);
 
   useEffect(() => {
-    fetch(`https://api.github.com/users/${GITHUB_USERNAME}/events/public?per_page=5`)
+    fetch(`https://api.github.com/users/${GITHUB_USERNAME}/events/public?per_page=8`)
       .then(res => res.json())
       .then(data => {
         setActivities(data.filter ? data.filter(a => ['PushEvent', 'PullRequestEvent', 'WatchEvent', 'ForkEvent', 'CreateEvent', 'IssuesEvent'].includes(a.type)) : []);
@@ -77,53 +81,45 @@ const GitHubActivity = ({ theme }) => {
   }, []);
 
   return (
-    <section className="max-w-4xl mx-auto px-6 py-20 relative">
-      <div className="text-center mb-12">
-        <motion.div
-          initial={{ opacity: 0, scale: 0.9 }}
-          whileInView={{ opacity: 1, scale: 1 }}
-          className={`inline-flex items-center gap-2 px-4 py-1 rounded-full text-sm mb-4 border ${theme === 'light'
-            ? 'bg-blue-50 border-blue-200 text-blue-700'
-            : 'bg-slate-800/50 border-slate-700/50 text-slate-300'
-            }`}
-        >
-          <span className="w-2 h-2 rounded-full bg-green-500 animate-pulse" />
-          Live Activity
-        </motion.div>
-        <h2 className={`text-3xl font-bold mb-4 ${theme === 'light' ? 'text-gray-900' : 'text-white'}`}>Latest from GitHub</h2>
-        <p className={`${theme === 'light' ? 'text-gray-600' : 'text-blue-200/60'}`}>
-          See what I&apos;ve been hacking on recently 🚀
-        </p>
-      </div>
-
-      <div className="max-w-2xl mx-auto space-y-3">
-        {loading ? (
-          [1, 2, 3].map(i => (
-            <div key={i} className={`h-20 rounded-xl animate-pulse ${theme === 'light' ? 'bg-gray-200' : 'bg-white/5'}`} />
-          ))
-        ) : (
-          activities.length > 0 ? (
-            activities.slice(0, 5).map((activity, index) => (
-              <ActivityCard key={activity.id} activity={activity} index={index} theme={theme} />
-            ))
-          ) : (
-            <div className="text-center text-gray-500 py-10">No recent activity</div>
-          )
-        )}
-      </div>
-
-      <div className="text-center mt-10">
+    <section className="h-full flex flex-col">
+      <div className="flex items-center justify-between mb-8 pb-4 border-b border-current">
+        <h3 className="text-2xl font-black uppercase tracking-tighter flex items-center gap-3">
+          GitHub Logs
+          <span className="flex h-3 w-3 relative">
+            <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-green-400 opacity-75"></span>
+            <span className="relative inline-flex rounded-full h-3 w-3 bg-green-500"></span>
+          </span>
+        </h3>
         <a
           href={`https://github.com/${GITHUB_USERNAME}`}
           target="_blank"
           rel="noopener noreferrer"
-          className={`inline-flex items-center gap-2 px-6 py-3 rounded-xl transition-all duration-300 border ${theme === 'light'
-            ? 'bg-white text-gray-900 border-gray-200 hover:bg-gray-50 hover:shadow-lg'
-            : 'bg-white/5 text-white border-white/5 hover:bg-white/10 hover:scale-105'
-            }`}
+          className={`font-mono text-xs uppercase underline underline-offset-4 decoration-dotted hover:decoration-solid ${theme === 'light' ? 'text-gray-600' : 'text-gray-400'}`}
         >
-          <FaGithub /> View Full Profile
+          View Profile_
         </a>
+      </div>
+
+      <div className={`flex-1 border-t ${theme === 'light' ? 'border-gray-200' : 'border-white/10'}`}>
+        {loading ? (
+          <div className="py-12 space-y-4">
+            {[1, 2, 3, 4].map(i => (
+              <div key={i} className={`h-12 w-full animate-pulse ${theme === 'light' ? 'bg-gray-100' : 'bg-white/5'}`} />
+            ))}
+          </div>
+        ) : (
+          activities.length > 0 ? (
+            <div className="divide-y divide-current">
+              {activities.map((activity, index) => (
+                <ActivityCard key={activity.id} activity={activity} index={index} theme={theme} />
+              ))}
+            </div>
+          ) : (
+            <div className="py-20 text-center font-mono text-sm opacity-50">
+                // System.out: No recent activity found
+            </div>
+          )
+        )}
       </div>
     </section>
   );

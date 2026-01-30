@@ -154,43 +154,43 @@ export const WORK_EXPERIENCE = [
 
 export const PERSONAL_BRAND_DATA = {
   philosophy: [
-    "Code with purpose, design with empathy",
-    "Every line matters, every user counts",
-    "Innovation through iteration, excellence through persistence",
-    "Building tomorrow's solutions with today's best practices"
+    "Engineering scalable ecosystems, not just applications.",
+    "Data-driven decision making with user-centric intuition.",
+    "Optimization is an obsession, not an afterthought.",
+    "Building robust architectures for the future web."
   ],
   journey: {
     title: "My Journey",
-    description: "From a curious student to a Full Stack Developer, my path has been defined by continuous learning and hands-on building. Started with C++, mastered the MERN stack, and now architecting scalable solutions."
+    description: "My evolution from a competitive programmer to a Full Stack Architect has been defined by a relentless pursuit of efficiency. Beginning with low-level algorithmic problem solving in C++, I transitioned to mastering modern web ecosystems. Today, I specialize in building high-performance, distributed applications where I leverage my deep understanding of data structures to optimize complex systems."
   },
   values: [
-    { title: "Clean Code", description: "Writing maintainable, efficient, and readable software." },
-    { title: "User-Centric", description: "Prioritizing user experience in every design decision." },
-    { title: "Continuous Learning", description: "Staying updated with evolving tech landscapes." },
-    { title: "Collaboration", description: "Believing in the power of teamwork and open source." }
+    { title: "Clean Architecture", description: "Designing systems that are modular, scalable, and easy to maintain." },
+    { title: "User Experience", description: "Crafting intuitive interactions that bridge the gap between human and machine." },
+    { title: "Performance", description: "Optimizing for millisecond-level latency and resource efficiency." },
+    { title: "Innovation", description: "Pushing the boundaries of what's possible on the web." }
   ],
   goals: {
     title: "Career Goals",
-    description: "To become a Lead Engineer contributing to high-impact projects, mentoring junior developers, and driving technical innovation in the open-source community."
+    description: "To operate as a Lead Software Engineer at a technology-first organization, driving architectural decisions and mentoring the next generation of developers."
   },
-  codeSnippet: `const developer = {
+  codeSnippet: `const engineer = {
   name: "Mozammil Ali",
-  role: "Full Stack Developer",
-  passion: "Building amazing things",
-  superpower: "Turning coffee into code ☕"
+  role: "Full Stack Architect",
+  focus: "Scalable Systems",
+  motto: "Efficiency by Design"
 };`,
   stats: [
-    { label: "Performance Leader", value: "100%", subtext: "Lighthouse 100/89 scores consistently" },
-    { label: "AI Innovation", value: "1+", subtext: "LangChain & RAG implementations" },
-    { label: "Full Stack", value: "4+", subtext: "End-to-end project delivery" },
-    { label: "Open Source", value: "Active", subtext: "Community contributions" }
+    { label: "Performance", value: "Top 1%", subtext: "Optimization Specialist" },
+    { label: "Problem Solving", value: "500+", subtext: "Algorithmic Solutions" },
+    { label: "Projects", value: "End-to-End", subtext: "Production Ready" },
+    { label: "Contributions", value: "Active", subtext: "Open Source Ecosystem" }
   ],
   achievements: [
-    "🟣 Codeforces Specialist | Max Rating: 1262",
-    "🟤 CodeChef 3★ | Max Rating: 1626",
-    "🟡 3.8k /26.7K — CF Round 1063 (Div. 3)",
-    "🔥 Solved 500+ algorithmic problems",
-    "🔧 5+ PRs & Open-source contributions (Hacktoberfest'25, Apache Wagtail)"
+    "🏆 Global Rank 1262 (Specialist) on Codeforces",
+    "⭐ Rated 1626 (3-Star) on CodeChef | Top Tier Competitive Programmer",
+    "🌍 Ranked 3,800/26,700 in Codeforces Round 1063 (Div. 3)",
+    "🧩 Solved 500+ Complex Algorithmic Problems across platforms",
+    "🔧 Major Open Source Contributor to Apache Wagtail & Hacktoberfest"
   ]
 };
 

@@ -56,8 +56,9 @@ export const Scene = ({ theme }) => {
 
     useFrame((state) => {
         // Parallax camera movement
-        state.camera.position.x = THREE.MathUtils.lerp(state.camera.position.x, mouse.x * 2, 0.05);
-        state.camera.position.y = THREE.MathUtils.lerp(state.camera.position.y, mouse.y * 2, 0.05);
+        // Increased sensitivity (x5) and lerp speed for better responsiveness
+        state.camera.position.x = THREE.MathUtils.lerp(state.camera.position.x, mouse.x * 5, 0.08);
+        state.camera.position.y = THREE.MathUtils.lerp(state.camera.position.y, mouse.y * 5, 0.08);
     });
 
     return (

@@ -17,7 +17,7 @@ const About = ({ theme }) => {
     ];
 
     return (
-        <section className={`min-h-screen pt-28 px-4 md:px-12 pointer-events-auto overflow-y-auto ${theme === 'light' ? 'bg-gray-50 text-gray-900' : 'bg-[#0a0a0a] text-white'}`}>
+        <section className={`min-h-screen pt-28 px-4 md:px-12 pointer-events-auto overflow-y-auto ${theme === 'light' ? 'bg-gray-50 text-gray-900' : 'bg-black text-white'}`}>
             <div className="max-w-7xl mx-auto pb-20">
                 {/* Header Section */}
                 <div className="mb-16 border-b border-current pb-8 flex flex-col md:flex-row justify-between items-end gap-6">
@@ -45,7 +45,7 @@ const About = ({ theme }) => {
                             ? 'border-black bg-white shadow-[8px_8px_0px_0px_rgba(0,0,0,1)]'
                             : 'border-white bg-zinc-900 shadow-[8px_8px_0px_0px_rgba(255,255,255,0.2)]'
                             }`}>
-                            <div className="aspect-square mb-6 overflow-hidden border border-current grayscale hover:grayscale-0 transition-all duration-500 cursor-none">
+                            <div className="aspect-square mb-6 overflow-hidden border border-current grayscale hover:grayscale-0 transition-all duration-500">
                                 <img
                                     src={ProfileImage}
                                     alt="Profile"
@@ -151,51 +151,35 @@ const About = ({ theme }) => {
 };
 
 const BioSection = ({ theme }) => (
-    <div className="grid grid-cols-1 md:grid-cols-2 gap-12">
+    <div className="space-y-12">
         <div>
             <h3 className="text-2xl font-black uppercase tracking-tighter mb-8 flex items-center gap-3">
-                <span className={`w-8 h-8 rounded-full flex items-center justify-center border ${theme === 'light' ? 'border-black' : 'border-white'}`}>1</span>
-                Philosophy
-            </h3>
-            <ul className="space-y-6">
-                {PERSONAL_BRAND_DATA.philosophy.map((item, idx) => (
-                    <motion.li
-                        initial={{ opacity: 0, x: -20 }}
-                        animate={{ opacity: 1, x: 0 }}
-                        transition={{ delay: idx * 0.1 }}
-                        key={idx}
-                        className="flex gap-6 group"
-                    >
-                        <span className="font-mono text-sm opacity-40 pt-1">0{idx + 1}</span>
-                        <p className={`text-lg font-medium leading-relaxed group-hover:translate-x-2 transition-transform duration-300 ${theme === 'light' ? 'text-gray-800' : 'text-gray-200'}`}>
-                            {item}
-                        </p>
-                    </motion.li>
-                ))}
-            </ul>
-        </div>
-        <div>
-            <h3 className="text-2xl font-black uppercase tracking-tighter mb-8 flex items-center gap-3">
-                <span className={`w-8 h-8 rounded-full flex items-center justify-center border ${theme === 'light' ? 'border-black' : 'border-white'}`}>2</span>
+                <span className={`w-8 h-8 flex items-center justify-center border ${theme === 'light' ? 'border-black' : 'border-white'}`}>1</span>
                 The Journey
             </h3>
-            <div className={`p-8 border-l-2 ${theme === 'light' ? 'border-black bg-gray-50' : 'border-white bg-white/5'}`}>
-                <p className="text-lg leading-relaxed italic opacity-80">
+            <div className={`p-8 border-l-4 ${theme === 'light' ? 'border-black bg-gray-50' : 'border-white bg-white/5'}`}>
+                <p className="text-xl leading-relaxed italic opacity-90 font-serif">
                     "{PERSONAL_BRAND_DATA.journey.description}"
                 </p>
             </div>
+        </div>
 
-            <div className="mt-12">
-                <h4 className="font-mono text-sm uppercase opacity-50 mb-6">Core Values</h4>
-                <div className="grid grid-cols-2 gap-4">
-                    {PERSONAL_BRAND_DATA.values.slice(0, 4).map((val, idx) => (
-                        <div key={idx} className={`p-4 border hover:bg-current hover:text-white transition-colors duration-300 group ${theme === 'light' ? 'border-gray-200 hover:text-white' : 'border-gray-800 hover:text-black'}`}>
-                            <div className="font-bold text-sm uppercase tracking-wide group-hover:text-gray-900">
-                                {val.title}
-                            </div>
+        <div>
+            <h4 className="font-mono text-sm uppercase opacity-50 mb-6 flex items-center gap-3">
+                <span className={`w-8 h-8 flex items-center justify-center border ${theme === 'light' ? 'border-black' : 'border-white'}`}>2</span>
+                Core Values
+            </h4>
+            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4">
+                {PERSONAL_BRAND_DATA.values.slice(0, 4).map((val, idx) => (
+                    <div key={idx} className={`p-6 border transition-all duration-300 group hover:-translate-y-1 ${theme === 'light' ? 'border-gray-200 hover:bg-black hover:text-white' : 'border-gray-800 hover:bg-white hover:text-black'}`}>
+                        <div className="font-bold text-sm uppercase tracking-wide mb-2 group-hover:text-inherit">
+                            {val.title}
                         </div>
-                    ))}
-                </div>
+                        <p className="text-xs opacity-60 group-hover:opacity-100 leading-relaxed">
+                            {val.description}
+                        </p>
+                    </div>
+                ))}
             </div>
         </div>
     </div>

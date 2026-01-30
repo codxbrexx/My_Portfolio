@@ -93,7 +93,7 @@ const Navbar = ({ theme, toggleTheme }) => {
                 <button
                     onClick={toggleTheme}
                     className={`p-3 rounded-full transition-all duration-500 ease-in-out ${theme === "light"
-                        ? "bg-black text-white hover:rotate-180"
+                        ? "bg-black text-white hover:rotate-1"
                         : "bg-white text-black hover:rotate-180"
                         }`}
                 >
@@ -105,12 +105,12 @@ const Navbar = ({ theme, toggleTheme }) => {
             <div className="flex items-center gap-4 md:hidden z-50">
                 <button
                     onClick={toggleTheme}
-                    className={`p-2 rounded-full transition-all duration-300 ${theme === "light" ? "bg-gray-100 text-black" : "bg-gray-800 text-white"
+                    className={`p-2 rounded-sm transition-all duration-300 ${theme === "light" ? "bg-gray-100 text-black" : "bg-gray-800 text-white"
                         }`}
                 >
                     {theme === "light" ? <FaMoon size={16} /> : <FaSun size={16} />}
                 </button>
-
+                
                 <button
                     onClick={() => setIsOpen(!isOpen)}
                     className={`text-2xl transition-colors duration-300 ${theme === 'light' ? 'text-black' : 'text-white'
