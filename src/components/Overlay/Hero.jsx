@@ -107,7 +107,7 @@ const Hero = ({ theme }) => {
             >
                 <SocialLink href="https://codeforces.com/profile/mozammilali" icon={<SiCodeforces />} color="hover:text-red-500" theme={theme} />
                 <SocialLink href="https://leetcode.com/mozammilali01" icon={<SiLeetcode />} color="hover:text-yellow-500" theme={theme} />
-                <SocialLink href="https://www.codechef.com/users/" icon={<SiCodechef />} color="hover:text-amber-700" theme={theme} />
+                <SocialLink href="https://www.codechef.com/users/kind_turkey_33" icon={<SiCodechef />} color="hover:text-amber-700" theme={theme} />
             </div>
 
             {/* Actions */}
