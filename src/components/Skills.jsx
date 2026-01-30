@@ -77,10 +77,6 @@ const Skills = ({ theme }) => {
         whileInView={{ opacity: 1, y: 0 }}
         viewport={{ once: true }}
       >
-        <p className={`max-w-2xl mx-auto text-lg ${theme === 'light' ? 'text-gray-600' : 'text-blue-200/60'}`}>
-          Interactive visualization of my technical skills and proficiency levels.
-          Click on categories to explore.
-        </p>
       </motion.div>
 
       <div className="grid grid-cols-1 md:grid-cols-2 gap-6">

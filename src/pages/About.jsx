@@ -3,128 +3,146 @@ import { motion, AnimatePresence } from 'framer-motion';
 import { PERSONAL_BRAND_DATA } from '../utils/data';
 import Skills from '../components/Skills';
 import GitHubActivity from '../components/GitHubActivity';
-import { FiUser, FiCode, FiGithub, FiAward } from "react-icons/fi";
-import ProfileImage from '../assets/hero-gen.png';
+import { FiArrowUpRight, FiGithub, FiGlobe } from "react-icons/fi";
+import ProfileImage from '../assets/Hero6.png';
 
 const About = ({ theme }) => {
     const [activeTab, setActiveTab] = useState('skills');
 
     const tabs = [
-        { id: 'skills', label: 'Skills', icon: FiCode },
-        { id: 'bio', label: 'Biography', icon: FiUser },
-        { id: 'achievements', label: 'Achievements', icon: FiAward },
-        { id: 'github', label: 'Activity', icon: FiGithub },
+        { id: 'skills', label: 'Skills' },
+        { id: 'bio', label: 'Biography' },
+        { id: 'achievements', label: 'Achievements' },
+        { id: 'github', label: 'Activity' },
     ];
 
     return (
-        <section className={`min-h-screen pt-32 px-6 md:px-12 pointer-events-auto overflow-y-auto ${theme === 'light' ? 'text-gray-900' : 'text-white'}`}>
-            <div className="max-w-6xl mx-auto pb-20">
-                <h1 className="text-6xl md:text-8xl font-black mb-12 uppercase tracking-tighter">About Me</h1>
-            </div>
-            <div className="max-w-7xl mx-auto pb-20 grid grid-cols-1 lg:grid-cols-12 gap-12">
-
-                {/* Left Column: Profile Card (Static Glass) */}
-                <div className="lg:col-span-4 xl:col-span-3">
-                    <div className={`p-8 rounded-3xl border backdrop-blur-md h-full flex flex-col items-center text-center transition-all duration-300 ${theme === 'light'
-                        ? 'bg-white/40 border-white/60 shadow-xl shadow-black/5'
-                        : 'bg-white/5 border-white/10 shadow-lg shadow-purple-500/10'
-                        }`}>
-                        <div className="relative w-48 h-48 mb-6 group">
-                            <div className={`absolute inset-0 rounded-full blur-xl opacity-50 group-hover:opacity-100 transition-opacity duration-500 ${theme === 'light' ? 'bg-indigo-400' : 'bg-indigo-600'
-                                }`} />
-                            <img
-                                src={ProfileImage}
-                                alt="Profile"
-                                className="relative w-full h-full rounded-full object-cover border-4 border-white/20 shadow-2xl"
-                            />
+        <section className={`min-h-screen pt-28 px-4 md:px-12 pointer-events-auto overflow-y-auto ${theme === 'light' ? 'bg-gray-50 text-gray-900' : 'bg-[#0a0a0a] text-white'}`}>
+            <div className="max-w-7xl mx-auto pb-20">
+                {/* Header Section */}
+                <div className="mb-16 border-b border-current pb-8 flex flex-col md:flex-row justify-between items-end gap-6">
+                    <div>
+                        <h1 className="text-7xl md:text-9xl font-black uppercase tracking-tighter leading-none mb-2">
+                            About
+                        </h1>
+                        <div className="flex items-center gap-4">
+                            <span className="text-xl md:text-2xl font-light tracking-widest uppercase opacity-60">
+                                The Developer
+                            </span>
+                            <div className={`h-px w-24 ${theme === 'light' ? 'bg-black' : 'bg-white'}`} />
                         </div>
-
-                        <h2 className={`text-3xl font-black uppercase tracking-tighter mb-2 ${theme === 'light' ? 'text-black' : 'text-white'}`}>
-                            {PERSONAL_BRAND_DATA.name}
-                        </h2>
-                        <p className={`text-sm font-bold uppercase tracking-widest mb-4 ${theme === 'light' ? 'text-indigo-600' : 'text-indigo-400'}`}>
-                            {PERSONAL_BRAND_DATA.jobTitle}
-                        </p>
-
-                        <p className={`text-sm leading-relaxed mb-6 opacity-80 ${theme === 'light' ? 'text-gray-700' : 'text-gray-300'}`}>
-                            {PERSONAL_BRAND_DATA.tagline}
-                        </p>
-
-                        <div className="flex flex-wrap justify-center gap-3 mb-8">
-                            <div className={`px-4 py-2 rounded-full text-xs font-bold border ${theme === 'light' ? 'bg-white/50 border-gray-200 text-gray-700' : 'bg-white/5 border-white/10 text-gray-300'}`}>
-                                📍 {PERSONAL_BRAND_DATA.location}
-                            </div>
-                            <div className={`px-4 py-2 rounded-full text-xs font-bold border ${theme === 'light' ? 'bg-white/50 border-gray-200 text-gray-700' : 'bg-white/5 border-white/10 text-gray-300'}`}>
-                                🎂 {PERSONAL_BRAND_DATA.yearsOfExperience} Year Exp.
-                            </div>
-                        </div>
-
-                        <div className="w-full h-px bg-gradient-to-r from-transparent via-current to-transparent opacity-20 mb-8" />
-
-                        <div className="flex gap-4 mb-8">
-                            <a href="https://github.com/codxbrexx" target="_blank" rel="noreferrer" className={`p-3 rounded-full transition-all duration-300 hover:scale-110 ${theme === 'light' ? 'bg-gray-100 text-gray-700 hover:bg-black hover:text-white' : 'bg-white/5 text-gray-400 hover:bg-white hover:text-black'}`}>
-                                <FiGithub size={20} />
-                            </a>
-                            <a href={PERSONAL_BRAND_DATA.website} target="_blank" rel="noreferrer" className={`p-3 rounded-full transition-all duration-300 hover:scale-110 ${theme === 'light' ? 'bg-gray-100 text-gray-700 hover:bg-blue-600 hover:text-white' : 'bg-white/5 text-gray-400 hover:bg-blue-500 hover:text-white'}`}>
-                                <FiUser size={20} />
-                            </a>
-                        </div>
-
-                        <div className="grid grid-cols-2 gap-4 w-full">
-                            {PERSONAL_BRAND_DATA.stats.map((stat, idx) => (
-                                <div key={idx} className={`p-3 rounded-2xl border ${theme === 'light' ? 'bg-white/50 border-white text-gray-800' : 'bg-black/20 border-white/5 text-gray-200'
-                                    }`}>
-                                    <div className="text-xl font-bold">{stat.value}</div>
-                                    <div className="text-[10px] uppercase tracking-wide opacity-70">{stat.label}</div>
-                                </div>
-                            ))}
-                        </div>
+                    </div>
+                    <div className="text-right font-mono text-sm opacity-60">
+                        <p>EST. 2024</p>
+                        <p>IIIT LUCKNOW</p>
                     </div>
                 </div>
 
-                {/* Right Column: Content Tabs */}
-                <div className="lg:col-span-8 xl:col-span-9">
-                    {/* Tabs Navigation */}
-                    <div className="flex flex-wrap gap-4 mb-8">
-                        {tabs.map((tab) => (
-                            <button
-                                key={tab.id}
-                                onClick={() => setActiveTab(tab.id)}
-                                className={`flex items-center gap-2 px-6 py-3 rounded-full font-bold uppercase tracking-wider text-sm transition-all duration-300 ${activeTab === tab.id
-                                    ? (theme === 'light'
-                                        ? 'bg-black text-white shadow-lg transform scale-105'
-                                        : 'bg-white text-black shadow-lg shadow-white/20 transform scale-105')
-                                    : (theme === 'light'
-                                        ? 'bg-white/50 text-gray-600 hover:bg-white hover:text-black'
-                                        : 'bg-white/5 text-gray-400 hover:bg-white/10 hover:text-white')
-                                    }`}
-                            >
-                                <tab.icon size={18} />
-                                {tab.label}
-                            </button>
-                        ))}
+                <div className="grid grid-cols-1 lg:grid-cols-12 gap-12">
+                    {/* Left Column: Profile Card */}
+                    <div className="lg:col-span-4 xl:col-span-3">
+                        <div className={`sticky top-32 p-6 border-2 transition-all duration-300 ${theme === 'light'
+                            ? 'border-black bg-white shadow-[8px_8px_0px_0px_rgba(0,0,0,1)]'
+                            : 'border-white bg-zinc-900 shadow-[8px_8px_0px_0px_rgba(255,255,255,0.2)]'
+                            }`}>
+                            <div className="aspect-square mb-6 overflow-hidden border border-current grayscale hover:grayscale-0 transition-all duration-500 cursor-none">
+                                <img
+                                    src={ProfileImage}
+                                    alt="Profile"
+                                    className="w-full h-full object-cover transform hover:scale-110 transition-transform duration-700"
+                                />
+                            </div>
+
+                            <h2 className="text-3xl font-black uppercase tracking-tighter mb-1 leading-none">
+                                {PERSONAL_BRAND_DATA.name}
+                            </h2>
+                            <p className="text-xs font-bold uppercase tracking-widest mb-6 opacity-60">
+                                {PERSONAL_BRAND_DATA.jobTitle}
+                            </p>
+
+                            <div className="space-y-4 font-mono text-xs border-t border-dashed border-current pt-6">
+                                <div className="flex justify-between items-center group">
+                                    <span className="opacity-60 group-hover:opacity-100 transition-opacity">Location</span>
+                                    <span className="font-bold">{PERSONAL_BRAND_DATA.location}</span>
+                                </div>
+                                <div className="flex justify-between items-center group">
+                                    <span className="opacity-60 group-hover:opacity-100 transition-opacity">Experience</span>
+                                    <span className="font-bold">{PERSONAL_BRAND_DATA.yearsOfExperience} Year</span>
+                                </div>
+                                <div className="flex justify-between items-center group">
+                                    <span className="opacity-60 group-hover:opacity-100 transition-opacity">Status</span>
+                                    <span className="font-bold text-green-500">Available</span>
+                                </div>
+                            </div>
+
+                            <div className="mt-8 flex gap-3">
+                                <a
+                                    href="https://github.com/codxbrexx"
+                                    target="_blank"
+                                    rel="noreferrer"
+                                    className={`flex-1 py-3 border border-current flex items-center justify-center gap-2 font-bold uppercase text-xs transition-all hover:-translate-y-1 ${theme === 'light' ? 'hover:bg-black hover:text-white' : 'hover:bg-white hover:text-black'}`}
+                                >
+                                    <FiGithub size={16} />
+                                    GitHub
+                                </a>
+                                <a
+                                    href={PERSONAL_BRAND_DATA.website}
+                                    target="_blank"
+                                    rel="noreferrer"
+                                    className={`flex-1 py-3 border border-current flex items-center justify-center gap-2 font-bold uppercase text-xs transition-all hover:-translate-y-1 ${theme === 'light' ? 'hover:bg-black hover:text-white' : 'hover:bg-white hover:text-black'}`}
+                                >
+                                    <FiGlobe size={16} />
+                                    Website
+                                </a>
+                            </div>
+                        </div>
                     </div>
 
-                    {/* Tab Content Area */}
-                    <div className={`rounded-3xl border backdrop-blur-md p-6 md:p-8 min-h-[500px] ${theme === 'light'
-                        ? 'bg-white/40 border-white/60 shadow-xl'
-                        : 'bg-white/5 border-white/10'
-                        }`}>
-                        <AnimatePresence mode="wait">
-                            <motion.div
-                                key={activeTab}
-                                initial={{ opacity: 0, x: 20 }}
-                                animate={{ opacity: 1, x: 0 }}
-                                exit={{ opacity: 0, x: -20 }}
-                                transition={{ duration: 0.3 }}
-                                className="h-full"
-                            >
-                                {activeTab === 'skills' && <SkillsSection theme={theme} />}
-                                {activeTab === 'bio' && <BioSection theme={theme} />}
-                                {activeTab === 'achievements' && <AchievementsSection theme={theme} />}
-                                {activeTab === 'github' && <GithubSection theme={theme} />}
-                            </motion.div>
-                        </AnimatePresence>
+                    {/* Right Column: Content */}
+                    <div className="lg:col-span-8 xl:col-span-9">
+                        {/* Tabs Navigation */}
+                        <div className="flex flex-wrap gap-x-8 gap-y-4 mb-12 border-b border-current pb-4">
+                            {tabs.map((tab) => (
+                                <button
+                                    key={tab.id}
+                                    onClick={() => setActiveTab(tab.id)}
+                                    className={`relative text-xl font-black uppercase tracking-wider transition-all duration-300 ${activeTab === tab.id
+                                        ? 'opacity-100'
+                                        : 'opacity-40 hover:opacity-100'
+                                        }`}
+                                >
+                                    {tab.label}
+                                    {activeTab === tab.id && (
+                                        <motion.div
+                                            layoutId="activeTab"
+                                            className={`absolute -bottom-[17px] left-0 right-0 h-1 ${theme === 'light' ? 'bg-black' : 'bg-white'}`}
+                                        />
+                                    )}
+                                </button>
+                            ))}
+                        </div>
+
+                        {/* Content Area */}
+                        <div className="min-h-[500px]">
+                            <AnimatePresence mode="wait">
+                                <motion.div
+                                    key={activeTab}
+                                    initial={{ opacity: 0, y: 20 }}
+                                    animate={{ opacity: 1, y: 0 }}
+                                    exit={{ opacity: 0, y: -20 }}
+                                    transition={{ duration: 0.3, ease: "circOut" }}
+                                >
+                                    {activeTab === 'skills' && (
+                                        <div className="space-y-8">
+                                            <Skills theme={theme} />
+                                        </div>
+                                    )}
+                                    {activeTab === 'bio' && <BioSection theme={theme} />}
+                                    {activeTab === 'achievements' && <AchievementsSection theme={theme} />}
+                                    {activeTab === 'github' && <GitHubActivity theme={theme} />}
+                                </motion.div>
+                            </AnimatePresence>
+                        </div>
                     </div>
                 </div>
             </div>
@@ -132,87 +150,82 @@ const About = ({ theme }) => {
     );
 };
 
-const SkillsSection = ({ theme }) => (
-    <div className="h-full">
-        <h3 className={`text-2xl font-black uppercase tracking-tighter mb-8 ${theme === 'light' ? 'text-black' : 'text-white'}`}>Technical Arsenal</h3>
-        <Skills theme={theme} />
-    </div>
-);
-
 const BioSection = ({ theme }) => (
-    <div className="space-y-12">
-        <div className="grid grid-cols-1 md:grid-cols-2 gap-12">
-            <div>
-                <h3 className={`text-2xl font-black uppercase tracking-tighter mb-6 ${theme === 'light' ? 'text-black' : 'text-white'}`}>Philosophy</h3>
-                <ul className="space-y-6">
-                    {PERSONAL_BRAND_DATA.philosophy.map((item, idx) => (
-                        <motion.li
-                            initial={{ opacity: 0, y: 10 }}
-                            animate={{ opacity: 1, y: 0 }}
-                            transition={{ delay: idx * 0.1 }}
-                            key={idx}
-                            className={`text-lg font-medium flex gap-4 ${theme === 'light' ? 'text-gray-700' : 'text-gray-300'}`}
-                        >
-                            <span className="text-indigo-500 font-bold min-w-[20px]">0{idx + 1}.</span>
+    <div className="grid grid-cols-1 md:grid-cols-2 gap-12">
+        <div>
+            <h3 className="text-2xl font-black uppercase tracking-tighter mb-8 flex items-center gap-3">
+                <span className={`w-8 h-8 rounded-full flex items-center justify-center border ${theme === 'light' ? 'border-black' : 'border-white'}`}>1</span>
+                Philosophy
+            </h3>
+            <ul className="space-y-6">
+                {PERSONAL_BRAND_DATA.philosophy.map((item, idx) => (
+                    <motion.li
+                        initial={{ opacity: 0, x: -20 }}
+                        animate={{ opacity: 1, x: 0 }}
+                        transition={{ delay: idx * 0.1 }}
+                        key={idx}
+                        className="flex gap-6 group"
+                    >
+                        <span className="font-mono text-sm opacity-40 pt-1">0{idx + 1}</span>
+                        <p className={`text-lg font-medium leading-relaxed group-hover:translate-x-2 transition-transform duration-300 ${theme === 'light' ? 'text-gray-800' : 'text-gray-200'}`}>
                             {item}
-                        </motion.li>
-                    ))}
-                </ul>
+                        </p>
+                    </motion.li>
+                ))}
+            </ul>
+        </div>
+        <div>
+            <h3 className="text-2xl font-black uppercase tracking-tighter mb-8 flex items-center gap-3">
+                <span className={`w-8 h-8 rounded-full flex items-center justify-center border ${theme === 'light' ? 'border-black' : 'border-white'}`}>2</span>
+                The Journey
+            </h3>
+            <div className={`p-8 border-l-2 ${theme === 'light' ? 'border-black bg-gray-50' : 'border-white bg-white/5'}`}>
+                <p className="text-lg leading-relaxed italic opacity-80">
+                    "{PERSONAL_BRAND_DATA.journey.description}"
+                </p>
             </div>
-            <div>
-                <h3 className={`text-2xl font-black uppercase tracking-tighter mb-6 ${theme === 'light' ? 'text-black' : 'text-white'}`}>The Journey</h3>
-                <div className={`p-6 rounded-2xl border ${theme === 'light' ? 'bg-white/60 border-white text-gray-700' : 'bg-black/20 border-white/10 text-gray-300'}`}>
-                    <p className="text-lg leading-relaxed">
-                        {PERSONAL_BRAND_DATA.journey.description}
-                    </p>
-                </div>
 
-                <div className="mt-8">
-                    <h4 className={`text-lg font-bold uppercase tracking-wider mb-4 ${theme === 'light' ? 'text-black' : 'text-white'}`}>Core Values</h4>
-                    <div className="grid grid-cols-2 gap-4">
-                        {PERSONAL_BRAND_DATA.values.slice(0, 4).map((val, idx) => (
-                            <div key={idx} className={`p-3 rounded-xl border text-center ${theme === 'light' ? 'bg-white/40 border-gray-200' : 'bg-white/5 border-white/5'}`}>
-                                <div className={`font-bold text-sm ${theme === 'light' ? 'text-indigo-600' : 'text-indigo-400'}`}>{val.title}</div>
+            <div className="mt-12">
+                <h4 className="font-mono text-sm uppercase opacity-50 mb-6">Core Values</h4>
+                <div className="grid grid-cols-2 gap-4">
+                    {PERSONAL_BRAND_DATA.values.slice(0, 4).map((val, idx) => (
+                        <div key={idx} className={`p-4 border hover:bg-current hover:text-white transition-colors duration-300 group ${theme === 'light' ? 'border-gray-200 hover:text-white' : 'border-gray-800 hover:text-black'}`}>
+                            <div className="font-bold text-sm uppercase tracking-wide group-hover:text-gray-900">
+                                {val.title}
                             </div>
-                        ))}
-                    </div>
+                        </div>
+                    ))}
                 </div>
             </div>
         </div>
     </div>
 );
-
-
 
 const AchievementsSection = ({ theme }) => (
-    <div className="space-y-8">
-        <h3 className={`text-2xl font-black uppercase tracking-tighter mb-8 ${theme === 'light' ? 'text-black' : 'text-white'}`}>
-            Honors & Achievements
-        </h3>
-        <div className="grid grid-cols-1 gap-4">
-            {PERSONAL_BRAND_DATA.achievements.map((item, idx) => (
-                <motion.div
-                    key={idx}
-                    initial={{ opacity: 0, x: -20 }}
-                    animate={{ opacity: 1, x: 0 }}
-                    transition={{ delay: idx * 0.1 }}
-                    className={`p-6 rounded-2xl border flex items-center gap-4 transition-all duration-300 hover:scale-[1.02] ${theme === 'light'
-                        ? 'bg-white/60 border-gray-200 text-gray-800 hover:border-indigo-500/30 hover:shadow-lg'
-                        : 'bg-white/5 border-white/10 text-gray-200 hover:bg-white/10 hover:border-white/20'
-                        }`}
-                >
-                    <div className={`p-3 rounded-full ${theme === 'light' ? 'bg-indigo-100 text-indigo-600' : 'bg-indigo-500/20 text-indigo-400'}`}>
-                        <FiAward size={24} />
-                    </div>
-                    <span className="text-lg font-medium">{item}</span>
-                </motion.div>
-            ))}
-        </div>
+    <div className="space-y-4">
+        {PERSONAL_BRAND_DATA.achievements.map((item, idx) => (
+            <motion.div
+                key={idx}
+                initial={{ opacity: 0, y: 10 }}
+                animate={{ opacity: 1, y: 0 }}
+                transition={{ delay: idx * 0.05 }}
+                className={`p-6 border-b flex items-start gap-6 group transition-colors ${theme === 'light'
+                    ? 'border-gray-200 hover:bg-gray-50'
+                    : 'border-white/10 hover:bg-white/5'
+                    }`}
+            >
+                <span className="font-mono text-xl opacity-30 group-hover:opacity-100 transition-opacity">
+                    0{idx + 1}
+                </span>
+                <div className="flex-1">
+                    <p className="text-xl font-bold leading-tight group-hover:translate-x-2 transition-transform duration-300">
+                        {item}
+                    </p>
+                </div>
+                <FiArrowUpRight className="opacity-0 group-hover:opacity-100 transition-opacity transform group-hover:translate-x-1 group-hover:-translate-y-1" size={24} />
+            </motion.div>
+        ))}
     </div>
-);
-
-const GithubSection = ({ theme }) => (
-    <GitHubActivity theme={theme} />
 );
 
 export default About;
