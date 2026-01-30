@@ -3,7 +3,7 @@ import { Link } from "react-router-dom";
 import gsap from "gsap";
 import { PROFILE_DATA, HERO_CONTENT } from "../../utils/data";
 import { FaGithub, FaLinkedin, FaTwitter } from "react-icons/fa";
-import HeroImage from "../../assets/hero-gen.png";
+import HeroImage from "../../assets/Hero6.png";
 
 const Hero = ({ theme }) => {
     const containerRef = useRef();
